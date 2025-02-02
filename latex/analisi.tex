@@ -1,0 +1,609 @@
+\newpage
+\section{Analisi del Problema}
+\subsection{Analisi Documento dei Requisiti: Analisi delle Funzionalità}
+\hfill \break
+
+\textbf{Tabella delle Funzionalità}
+\hfill \break
+
+\begin{tabular} {|P{4cm}|P{4cm}|P{3.5cm}|P{4cm}|} % Qua cambiate a piacimento la larghezza
+    \hline
+    \textbf{Funzionalità} & \textbf{Tipo}                                                 & \textbf{Grado di complessità} & \textbf{Requisiti Collegati}                    \\
+    \hline
+    Login                 & Interazione esterno e lettura dati                            & semplice                      & R2F                                             \\
+    \hline
+    Registrazione         & Interazione esterno e memorizzazione dati                     & semplice                      & R1F                                             \\
+    \hline
+    EventiConfermati      & Interazione esterno e gestione dati                           & complessa                     & R4F, R8F                                        \\
+    \hline
+    EventiProposti        & Interazione esterno e gestione dati                           & complessa                     & R5F, R9F                                        \\
+    \hline
+    GestioneGruppi        & Interazione esterno e gestione dati                           & complessa                     & R13F, R14F                                      \\
+    \hline
+    GestioneProfili       & Interazione esterno e gestione dati                           & complessa                     & R10F, R12F                                      \\
+    \hline
+    VisualizzaEvento      & Interazione esterno e gestione, lettura e memorizzazione dati & complessa                     & R5F, R6F, R7F, R8F, R9F, R14F, R15F, R18F, R20F \\
+    \hline
+    AggiornaEvento        & Gestione dati                                                 & complessa                     & R17F                                            \\
+    \hline
+    RecuperaImmagini      & Lettura dati                                                  & complessa                     & R19F                                            \\
+    \hline
+    ScritturaLog          & Memorizzazione dati                                           & semplice                      & R21F                                            \\
+    \hline
+\end{tabular}
+
+\hfill \break
+
+\textbf{Registrazione: Tabella Informazioni/Flusso}
+\hfill \break
+
+\begin{tabular} {|P{3cm}|P{3cm}|P{3cm}|P{3cm}|P{3cm}|}
+    \hline
+    \textbf{Informazione} & \textbf{Tipo} & \textbf{Livello protezione/privacy} & \textbf{Input/Output} & \textbf{Vincoli}                                  \\
+    Email                 & semplice      & Protezione alta                     & Input                 & Deve essere di 256 caratteri e del formato giusto \\
+    \hline
+    Password              & semplice      & Protezione molto alta               & Input                 & Deve essere almeno di 8 caratteri                 \\
+    \hline
+\end{tabular}
+\hfill \break
+
+\textbf{Login: Tabella Informazioni/Flusso}
+\hfill \break
+
+\begin{tabular} {|P{3cm}|P{3cm}|P{3cm}|P{3cm}|P{3cm}|}
+    \hline
+    \textbf{Informazione} & \textbf{Tipo} & \textbf{Livello protezione/privacy} & \textbf{Input/Output} & \textbf{Vincoli}         \\
+    \hline
+    Email                 & semplice      & Protezione molto alta               & Input                 & Non più di 256 caratteri \\
+    \hline
+    Password              & semplice      & Protezione molto alta               & Input                 & Non più di 50 caratteri  \\
+    \hline
+\end{tabular}
+\hfill \break
+
+\textbf{EventiConfermati: Tabella Informazioni/Flusso}
+\hfill \break
+
+\begin{tabular} {|P{3cm}|P{3cm}|P{3cm}|P{3cm}|P{3cm}|}
+    \hline
+    \textbf{Informazione}   & \textbf{Tipo} & \textbf{Livello protezione/privacy} & \textbf{Input / Output} & \textbf{Vincoli} \\
+    \hline
+    Lista Eventi Confermati & Composto      & Protezione media                    & Output                  &                  \\
+    \hline
+\end{tabular}
+\hfill \break
+
+\textbf{EventiProposti: Tabella Informazioni/Flusso}
+\hfill \break
+
+\begin{tabular} {|P{3cm}|P{3cm}|P{3cm}|P{3cm}|P{3cm}|}
+    \hline
+    \textbf{Informazione} & \textbf{Tipo} & \textbf{Livello protezione/privacy} & \textbf{Input / Output} & \textbf{Vincoli} \\
+    \hline
+    Lista Eventi Proposti & Composto      & Protezione media                    & Output                  &                  \\
+    \hline
+\end{tabular}
+\hfill \break
+
+\textbf{GestioneGruppi: Tabella Informazioni/Flusso}
+\hfill \break
+
+\begin{tabular} {|P{3cm}|P{3cm}|P{3cm}|P{3cm}|P{3cm}|}
+    \hline
+    \textbf{Informazione} & \textbf{Tipo} & \textbf{Livello protezione/privacy} & \textbf{Input / Output} & \textbf{Vincoli}     \\
+    \hline
+    Elenco Gruppi         & Composto      & Protezione media                    & Output                  &                      \\
+    \hline
+    Tag di ricerca        & Semplice      & Protezione bassa                    & Input                   &                      \\
+    \hline
+    Elenco Profili        & Composto      & Protezione bassa                    & Output                  & Non più di 5 profili \\
+    \hline
+\end{tabular}
+\hfill \break
+
+\textbf{GestioneProfili: Tabella Informazioni/Flusso}
+\hfill \break
+
+\begin{tabular} {|P{3cm}|P{3cm}|P{3cm}|P{3cm}|P{3cm}|}
+    \hline
+    \textbf{Informazione}           & \textbf{Tipo} & \textbf{Livello protezione/privacy} & \textbf{Input/Output} & \textbf{Vincoli} \\
+    \hline
+    Lista Profili                   & Composta      & Protezione media                    & Output                &                  \\
+    \hline
+    Identificativo Utente           & Semplice      & Protezione alta                     & Output                &                  \\
+    \hline
+    Identificativo Profilo corrente & Semplice      & Protezione alta                     & Output                &                  \\
+    \hline
+\end{tabular}
+\hfill \break
+
+\textbf{VisualizzaEvento: Tabella Informazioni/Flusso}
+\hfill \break
+
+\begin{tabular} {|P{3cm}|P{3cm}|P{3cm}|P{3cm}|P{3cm}|}
+    \hline
+    \textbf{Informazione}   & \textbf{Tipo} & \textbf{Livello protezione/privacy} & \textbf{Input/Output} & \textbf{Vincoli}                          \\
+    \hline
+    Identificativo Evento   & Semplice      & Protezione alta                     & Output                &                                           \\
+    \hline
+    Titolo Evento           & Semplice      & Protezione media                    & Input/Output          & Non più di 256 caratteri                  \\
+    \hline
+    Descrizione Evento      & Semplice      & Protezione media                    & Input/Output          & Non più di 1024 caratteri                 \\
+    \hline
+    Data e orario di inizio & Semplice      & Protezione media                    & Input/Output          & Deve essere precedente alla data di fine  \\
+    \hline
+    Data e orario di fine   & Semplice      & Protezione media                    & Input/Output          & Deve essere sucessiva alla data di inizio \\
+    \hline
+    Confermato              & Semplice      & Protezione media                    & Input/Output          &                                           \\
+    \hline
+    Immagini                & Composto      & Protezione media                    & Input/Output          &                                           \\
+    \hline
+\end{tabular}
+\hfill \break
+
+\textbf{AggiornaEvento: Tabella Informazioni/Flusso}
+\hfill \break
+
+\begin{tabular} {|P{3cm}|P{3cm}|P{3cm}|P{3cm}|P{3cm}|}
+    \hline
+    \textbf{Informazione} & \textbf{Tipo} & \textbf{Livello protezione/privacy} & \textbf{Input/Output} & \textbf{Vincoli}                                                        \\
+    \hline
+    Nome Cliente          & Semplice      & Protezione media                    & Input                 & Non più di 40 caratteri                                                 \\
+    \hline
+    Cognome Cliente       & semplice      & Protezione media                    & Input                 & Non più di 40 caratteri                                                 \\
+    \hline
+    Data di Nascita       & semplice      & Protezione media                    & Input                 & Deve avere più di 16 anni e data di nascita successiva al 1900          \\
+    \hline
+    Codice Fiscale        & semplice      & Protezione media                    & Input                 & Deve essere di 16 caratteri                                             \\
+    \hline
+    Email                 & semplice      & Protezione alta                     & Input                 & Deve essere di 256 caratteri e del formato giusto                       \\
+    \hline
+    Password              & semplice      & Protezione molto alta               & Input                 & Deve essere almeno di 8 caratteri, di cui uno alfabetico e uno numerico \\
+    \hline
+\end{tabular}
+\hfill \break
+
+\textbf{RecuperaImmagini: Tabella Informazioni/Flusso}
+\hfill \break
+
+\begin{tabular} {|P{3cm}|P{3cm}|P{3cm}|P{3cm}|P{3cm}|}
+    \hline
+    \textbf{Informazione} & \textbf{Tipo} & \textbf{Livello protezione/privacy} & \textbf{Input/Output} & \textbf{Vincoli}                                                        \\
+    \hline
+    Nome Cliente          & Semplice      & Protezione media                    & Input                 & Non più di 40 caratteri                                                 \\
+    \hline
+    Cognome Cliente       & semplice      & Protezione media                    & Input                 & Non più di 40 caratteri                                                 \\
+    \hline
+    Data di Nascita       & semplice      & Protezione media                    & Input                 & Deve avere più di 16 anni e data di nascita successiva al 1900          \\
+    \hline
+    Codice Fiscale        & semplice      & Protezione media                    & Input                 & Deve essere di 16 caratteri                                             \\
+    \hline
+    Email                 & semplice      & Protezione alta                     & Input                 & Deve essere di 256 caratteri e del formato giusto                       \\
+    \hline
+    Password              & semplice      & Protezione molto alta               & Input                 & Deve essere almeno di 8 caratteri, di cui uno alfabetico e uno numerico \\
+    \hline
+\end{tabular}
+\hfill \break
+
+\textbf{ScritturaLog: Tabella Informazioni/Flusso}
+\hfill \break
+
+\begin{tabular} {|P{3cm}|P{3cm}|P{3cm}|P{3cm}|P{3cm}|}
+    \hline
+    \textbf{Informazione}   & \textbf{Tipo} & \textbf{Livello protezione/privacy} & \textbf{Input/Output} & \textbf{Vincoli}        \\
+    \hline
+    Data                    & semplice      & Protezione media                    & Input                 & Non più di 40 caratteri \\
+    \hline
+    Ora                     & semplice      & Protezione media                    & Input                 & Non più di 40 caratteri \\
+    \hline
+    Attore                  & semplice      & Protezione alta                     & Input                 & Non più di 20 caratteri \\
+    \hline
+    Identificativo Farmacia & semplice      & Protezione alta                     & Input                 & Non più di 20 caratteri \\
+    \hline
+    Operazione Eseguita     & composto      & Protezione alta                     & Input                 &                         \\
+    \hline
+    Evento                  & composto      & Protezione molto alta               & Input                 &                         \\
+    \hline
+\end{tabular}
+
+\newpage
+\subsubsection{Analisi Documento dei Requisiti: Analisi dei Vincoli}
+\hfill \break
+
+\textbf{Tabella Vincoli}
+\hfill \break
+
+
+\begin{tabular} {|P{4cm}|P{2.5cm}|P{3.5cm}|P{6cm}|}
+    \hline
+    \textbf{Requisito}                  & \textbf{Categorie} & \textbf{Impatto}                                                         & \textbf{Funzionalità}                                                     \\
+    \hline
+    Semplicità dell'interfaccia         & Usabilità          & Intuitività di utilizzo                                                  & GestioneFarmacia, Registrazione, RicercaFarmaci, Login, NuovaPrenotazione \\
+    \hline
+    Velocità della ricerca dei dati     & Tempo di Risposta  & Maggiore reattività                                                      & GestioneFarmacia, Registrazione, RicercaFarmaci, Login, NuovaPrenotazione \\
+    \hline
+    Velocità di memorizzazione dei dati & Tempo di Risposta  & Maggiore reattività                                                      & GestioneFarmacia, Registrazione, Login, NuovaPrenotazione                 \\
+    \hline
+    Controllo Accessi                   & Sicurezza          & Peggiorano tempo di risposta e usabilità, migliorano la privacy dei dati & GestioneFarmacia, NuovaPrenotazione                                       \\
+    \hline
+    Protezione dei Dati                 & Sicurezza          & Peggiorano tempo di risposta, migliorano la privacy dei dati             & GestioneFarmacia, Registrazione, RicercaFarmaci, Login, NuovaPrenotazione \\
+    \hline
+\end{tabular}
+
+\newpage
+
+\subsubsection{Analisi Documento dei Requisiti: Analisi delle Interazioni}
+\hfill \break
+
+\textbf{Tabella Maschere}
+\hfill \break
+
+\begin{tabular} {|P{5cm}|P{7cm}|P{4cm}|}
+    \hline
+    \textbf{Maschera}          & \textbf{Informazioni}                                                                                     & \textbf{Funzionalità} \\
+    \hline
+    Home Gestione              & messaggio di benvenuto e scelta della funzionalità                                                        & GestioneFarmacia      \\
+    \hline
+    View Login                 & email, password                                                                                           & Login                 \\
+    \hline
+    View Prenotazioni          & lista prenotazioni                                                                                        & GestioneFarmacia      \\
+    \hline
+    View ResocontoUtenti       & nome cliente, cognome cliente, codice fiscale cliente, stato cliente                                      & GestioneFarmacia      \\
+    \hline
+    View VerificaIdentità      & nome cliente, cognome cliente, codice fiscale cliente                                                     & VeriticaIdentità      \\
+    \hline
+    View Farmaci               & lista farmaci                                                                                             & GestioneFarmacia      \\
+    \hline
+    Home Servizio              & messaggio di benvenuto, nome farmaco, località utente, lista farmacie pertinenti                          & RicercaFarmaci        \\
+    \hline
+    View Registrazione         & nome cliente, cognome cliente, data di nascita, codice fiscale, email, password                           & Registrazione         \\
+    \hline
+    View NuovaPrenotazione     & data invio, ora invio, data prenotazione, elenco farmaci, identificativo farmacia, identificativo cliente & NuovaPrenotazione     \\
+    \hline
+    View PrenotazioniPersonali & lista prenotazioni                                                                                        & ListaPrenotazioni     \\
+    \hline
+\end{tabular}
+\hfill \break
+\hfill \break
+
+\textbf{Tabella Sistemi Esterni}
+\hfill \break
+
+\begin{tabular} {|P{2.5cm}|P{4cm}|P{4cm}|P{4.5cm}|}
+    \hline
+    \textbf{Sistema}              & \textbf{Descrizione}                                          & \textbf{Protocollo di Interazione}                                                & \textbf{Livello di Sicurezza}                                    \\
+    \hline
+    Gestione \linebreak Magazzino & Sistema che si occupa della gestione dei farmaci in magazzino & Mette a disposizione il modello publisher-subscriber per notificare aggiornamenti & Medio livello di sicurezza perchè protegge i dati della farmacia \\
+    \hline
+\end{tabular}
+\hfill \break
+
+\newpage
+\subsubsection{Analisi Ruoli e Responsabilità}
+\hfill \break
+
+\textbf{Tabella Ruoli}
+\hfill \break
+
+\begin{tabular} {|P{2.5cm}|P{3cm}|P{4cm}|P{3cm}|P{2.5cm}|}
+    \hline
+    \textbf{Ruolo}                                                          & \textbf{Responsabilità}                                       & \textbf{Maschere} & \textbf{Riservatezza} & \textbf{Numerosità} \\
+    \hline
+    Farmacista                                                              & Gestione di tutte le informazioni relative agli utenti e alle
+    prenotazioni di una farmacia                                            & Home Gestione, View Login, View
+    Prenotazioni, View ResocontoUtenti, View VerificaIdentità, View Farmaci &
+    È richiesto un alto grado di riservatezza                               & Massimo 10 farmacisti per ogni
+    farmacia                                                                                                                                                                                                  \\
+    \hline
+    Cliente                                                                 & Ricerca di un farmaco senza necessità di login                & Home Servizio,
+    View Login, View Registrazione                                          & È richiesto un medio grado di
+    riservatezza                                                            & Illimitati                                                                                                                      \\
+    \hline
+    % roba molto brutta ma non so perchè non va a capo automaticamente questo
+    ClienteRegi-\linebreak strato                                           & Ricerca e prenotazione di farmaci presso una farmacia
+                                                                            & Home Servizio, View NuovaPrenotazione, View
+    PrenotazioniPersonali                                                   & È richiesto un alto grado di riservatezza                     &
+    Illimitati                                                                                                                                                                                                \\
+    \hline
+\end{tabular}
+\hfill \break
+\hfill \break
+
+\textbf{Farmacista: Tabella Ruolo-Informazioni}
+\hfill \break
+
+\begin{tabular} {|P{7cm}|P{7cm}|}
+    \hline
+    \textbf{Informazione} & \textbf{Tipo di Accesso} \\
+    \hline
+    Nome Cliente          & Lettura                  \\
+    \hline
+    Cognome Cliente       & Lettura                  \\
+    \hline
+    Codice Fiscale        & Lettura                  \\
+    \hline
+    Stato Cliente         & Lettura/Scrittura        \\
+    \hline
+    Lista Farmaci         & Lettura/Scrittura        \\
+    \hline
+    Lista Prenotazioni    & Lettura/Scrittura        \\
+    \hline
+\end{tabular}
+\hfill \break
+\hfill \break
+
+\textbf{ClienteRegistrato: Tabella Ruolo-Informazioni}
+\hfill \break
+
+\begin{tabular} {|P{7cm}|P{7cm}|}
+    \hline
+    \textbf{Informazione}     & \textbf{Tipo di Accesso} \\
+    \hline
+    Nome Cliente              & Lettura/Scrittura        \\
+    \hline
+    Cognome Cliente           & Lettura/Scrittura        \\
+    \hline
+    Data di Nascita           & Lettura                  \\
+    \hline
+    Codice Fiscale            & Lettura                  \\
+    \hline
+    Email                     & Lettura/Scrittura        \\
+    \hline
+    Password                  & Lettura/Scrittura        \\
+    \hline
+    Nome Farmaco              & Scrittura                \\
+    \hline
+    Località Utente           & Lettura                  \\
+    \hline
+    Lista Farmacie Pertinenti & Lettura                  \\
+    \hline
+    Data prenotazione         & Scrittura                \\
+    \hline
+    Elenco farmaci            & Scrittura                \\
+    \hline
+\end{tabular}
+\hfill \break
+
+\textbf{Cliente: Tabella Ruolo-Informazioni}
+\hfill \break
+
+\begin{tabular} {|P{7cm}|P{7cm}|}
+    \hline
+    \textbf{Informazione}     & \textbf{Tipo di Accesso} \\
+    \hline
+    Nome Farmaco              & Scrittura                \\
+    \hline
+    Località Utente           & Scrittura                \\
+    \hline
+    Lista Farmacie Pertinenti & Lettura                  \\
+    \hline
+\end{tabular}
+\hfill \break
+\hfill \break
+
+\subsubsection{Scomposizione del Problema}
+\hfill \break
+
+\textbf{Tabella Scomposizione Funzionalità}
+\hfill \break
+
+\begin{tabular} {|P{7cm}|P{7cm}|}
+    \hline
+    \textbf{Funzionalità} & \textbf{Scomposizione}                                                     \\
+    \hline
+    GestioneFarmacia      & ResocontoFarmaci, ResocontoUtenti, ControlloPrenotazioni, VerificaIdentità \\
+    \hline
+    GestionePrenotazioni  & NuovaPrenotazione, ListaPrenotazioni                                       \\
+    \hline
+    ControlloPrenotazioni & ConfermaPrenotazione                                                       \\
+    \hline
+    ResocontoUtenti       & SospensioneUtenza                                                          \\
+    \hline
+\end{tabular}
+\hfill \break
+
+Non sono presenti legami di esclusione o di necessità tra le sotto-funzionalità del sistema.
+
+\newpage
+\subsubsection{Creazione Modello del Dominio}
+
+Il seguente diagramma delle classi rappresenta la parte di modello del dominio relativa al sistema. \\
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{ModelloDominio.jpg}
+    \end{center}
+\end{figure}
+\hfill \break
+
+\newpage
+\subsubsection{Architettura Logica: Struttura}
+\hfill \break
+
+\textbf{Diagramma dei package}
+\hfill \break
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[scale=0.6]{Diagrammi-Package.png}
+    \end{center}
+\end{figure}
+\hfill \break
+
+\textbf{Diagramma delle classi: Dominio}
+\hfill \break
+
+Non viene riportato il diagramma delle classi associato al package Dominio in quanto è il modello del dominio creato nella fase precedente.
+
+\newpage
+
+\textbf{Diagramma delle classi: InterfacciaGestioneAccesso \& GestioneAccesso}
+\hfill \break
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{Diagrammi-Gestione Accesso.jpg}
+    \end{center}
+\end{figure}
+Tutte le ViewLogin contattano lo stesso Controller, che distingue il tipo di
+credenziali da verificare in base ad un parametro che gli viene passato dalla
+view che fa la richiesta
+\hfill \break
+
+\textbf{Diagramma delle classi: InterfacciaUtente \& RicercaFarmaci \& GestionePrenotazioni }
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{Diagrammi-Utente.jpg}
+    \end{center}
+\end{figure}
+HomeServizio fornisce la funzione di ricerca farmaco contattando direttamente
+il controller. Inoltre per i clienti ad aver fatto il login espone anche le
+funzionalità relative alle prenotazioni, come quella di crearne una nuova o di
+elencare quelle effettuate.
+
+\newpage
+\textbf{Diagramma delle classi: InterfacciaGestioneFarmacia \& GestioneFarmacia}
+\hfill \break
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{Diagrammi-Farmacia.jpg}
+    \end{center}
+\end{figure}
+L'InterfacciaFarmacia raccoglie tutte le funzionalità accessibili da
+HomeGestione, le quali si relazionano con i rispettivi controller contenuti in
+GestioneFarmacia.
+
+\newpage
+
+\subsubsection{Architettura Logica: Interazione}
+
+In seguito saranno riportati i principali diagrammi di sequenza durante un normale utilizzo dell'applicazione.
+\hfill \break
+
+\textbf{Diagramma di Sequenza: Login Utente}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[scale=0.5]{Interazione-LoginUtente.jpg}
+    \end{center}
+\end{figure}
+
+\textbf{Diagramma di Sequenza: Login Farmacista}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[scale=0.5]{Interazione-LoginFarmacista.jpg}
+    \end{center}
+\end{figure}
+\hfill \break
+
+\textbf{Diagramma di Sequenza: Nuova Prenotazione}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[scale=0.5]{Interazione-NuovaPrenotazione.jpg}
+    \end{center}
+\end{figure}
+
+\newpage
+
+\textbf{Diagramma di Sequenza: Registrazione Utente}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[scale=0.4]{Interazione-RegistrazioneUtente.jpg}
+    \end{center}
+\end{figure}
+\hfill \break
+
+\textbf{Diagramma di Sequenza: Conferma Prenotazione}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[scale=0.45]{Interazione-ConfermaPrenotazione.jpg}
+    \end{center}
+\end{figure}
+\newpage
+
+\textbf{Diagramma di Sequenza: Ricerca Farmaco}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[scale=0.5]{Interazione-RicercaFarmaco.jpg}
+    \end{center}
+\end{figure}
+\hfill \break
+
+\textbf{Diagramma di Sequenza: Sospensione Utenza}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[scale=0.5]{Interazione-SospensioneUtenza.jpg}
+    \end{center}
+\end{figure}
+\hfill \break
+
+\newpage
+\subsubsection{Architettura Logica: Comportamento}
+\hfill \break
+
+\textbf{Diagramma di Stato: Analizza Utente}
+\hfill \break
+Il seguente diagramma di stato illustra come vengono aggiornati gli stati dei
+vari utenti in seguito a delle mancate conferme di prenotazione.
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[scale=0.5]{Comportamento.jpg}
+    \end{center}
+\end{figure}
+\hfill \break
+
+\newpage
+\subsubsection{Piano di Lavoro}
+
+I compiti sono stati divisi in base alle competenze di
+ogni membro del gruppo come indicato nella tabella sottostante:
+\hfill \break
+
+\begin{tabular} {|P{5cm}|P{5cm}|P{5cm}|} % Qua cambiate a piacimento la larghezza
+    \hline
+    \textbf{Package}          & \textbf{Progetto}         & \textbf{Sviluppo}  \\
+    \hline
+    Dominio                   & Guerra,Palaferri,Romanini & Guerra             \\
+    \hline
+    Log                       & Guerra,Palaferri,Romanini & Guerra             \\
+    \hline
+    RicercaFarmaci            & Guerra,Palaferri,Romanini & Palaferri          \\
+    \hline
+    GestionePrenotazioni      & Guerra,Palaferri,Romanini & Palaferri,Romanini \\
+    \hline
+    GestioneAccesso           & Guerra,Palaferri,Romanini & Guerra,Romanini    \\
+    \hline
+    GestioneFarmacia          & Guerra,Palaferri,Romanini & Palaferri,Romanini \\
+    \hline
+    InterfacciaUtente         & Guerra,Palaferri,Romanini & Romanini           \\
+    \hline
+    InterfacciaGestioneAccsso & Guerra,Palaferri,Romanini & Guerra             \\
+    \hline
+    InterfacciaFarmacia       & Guerra,Palaferri,Romanini & Palaferri,Romanini \\
+    \hline
+\end{tabular}
+\hfill \break
+
+I tempi di rilascio sono i seguenti:
+\begin{itemize}
+    \item Progettazione entro due settimane dalla data odierna
+    \item Sviluppo dei vai moduli con annessi test unitari entro una settimana dalla fine della fase di progettazione
+    \item Integrazione e testing del sistema entro una settimana dalla fine dello sviluppo
+\end{itemize}
+\hfill \break
+
+\textbf{Sviluppi Futuri}
+\\
+
+Il cliente ha richiesto la creazione di un applicativo mobile per sistemi
+android e iOS, con l'obbiettivo di rendere il più pratico possibile l'utilizzo
+del programma.
