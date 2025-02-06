@@ -405,7 +405,7 @@ Non viene riportato il diagramma delle classi associato al package Dominio in qu
         \includegraphics[width=\textwidth]{GestioneProfilo.jpg}
     \end{center}
 \end{figure}
-
+\hfill \break
 \newpage
 
 \subsubsection{Architettura Logica: Interazione}
@@ -417,77 +417,82 @@ In seguito saranno riportati i principali diagrammi di sequenza durante un norma
 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[scale=0.5]{Interazione-LoginUtente.jpg}
-    \end{center}
-\end{figure}
-
-\textbf{Diagramma di Sequenza: Login Farmacista}
-
-\begin{figure}[h!]
-    \begin{center}
-        \includegraphics[scale=0.5]{Interazione-LoginFarmacista.jpg}
+        \includegraphics[scale=0.8]{SequenzaLogin.jpg}
     \end{center}
 \end{figure}
 \hfill \break
 
-\textbf{Diagramma di Sequenza: Nuova Prenotazione}
+\textbf{Diagramma di Sequenza: Registrazione}
 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[scale=0.5]{Interazione-NuovaPrenotazione.jpg}
+        \includegraphics[width=\textwidth]{SequenzaRegistrazione.jpg}
     \end{center}
 \end{figure}
-
+\hfill \break
 \newpage
 
-\textbf{Diagramma di Sequenza: Registrazione Utente}
+\textbf{Diagramma di Sequenza: Visualizza Eventi Confermati}
 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[scale=0.4]{Interazione-RegistrazioneUtente.jpg}
+        \includegraphics[scale=0.8]{SequenzaVisualizzaEventiConfermati.jpg}
     \end{center}
 \end{figure}
 \hfill \break
 
-\textbf{Diagramma di Sequenza: Conferma Prenotazione}
+\textbf{Diagramma di Sequenza: Visualizza Eventi Proposti}
 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[scale=0.45]{Interazione-ConfermaPrenotazione.jpg}
+        \includegraphics[scale=0.8]{SequenzaVisualizzaEventiProposti.jpg}
     \end{center}
 \end{figure}
+\hfill \break
+\newpage
+\textbf{Diagramma di Sequenza: Visualizza Evento}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{SequenzaVisualizzaEvento.jpg}
+    \end{center}
+\end{figure}
+\hfill \break
+
+
+\textbf{Diagramma di Sequenza: Crea / Modifica / Conferma / Disdici Evento}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{SequenzaCreaModificaEvento.jpg}
+    \end{center}
+\end{figure}
+\hfill \break
+
+\textbf{Diagramma di Sequenza: Carica Immagini}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{SequenzaCaricaImmagini.jpg}
+    \end{center}
+\end{figure}
+\hfill \break
+
+\textbf{Diagramma di Sequenza: Conferma Immagini}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{SequenzaConfermaImmagini.jpg}
+    \end{center}
+\end{figure}
+\hfill \break
 \newpage
 
-\textbf{Diagramma di Sequenza: Ricerca Farmaco}
+\textbf{Diagramma di Sequenza: Condividi Evento ai gruppi}
 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[scale=0.5]{Interazione-RicercaFarmaco.jpg}
-    \end{center}
-\end{figure}
-\hfill \break
-
-\textbf{Diagramma di Sequenza: Sospensione Utenza}
-
-\begin{figure}[h!]
-    \begin{center}
-        \includegraphics[scale=0.5]{Interazione-SospensioneUtenza.jpg}
-    \end{center}
-\end{figure}
-\hfill \break
-
-\newpage
-\subsubsection{Architettura Logica: Comportamento}
-\hfill \break
-
-\textbf{Diagramma di Stato: Analizza Utente}
-\hfill \break
-Il seguente diagramma di stato illustra come vengono aggiornati gli stati dei
-vari utenti in seguito a delle mancate conferme di prenotazione.
-
-\begin{figure}[h!]
-    \begin{center}
-        \includegraphics[scale=0.5]{Comportamento.jpg}
+        \includegraphics[width=\textwidth]{SequenzaCondividiEvento.jpg}
     \end{center}
 \end{figure}
 \hfill \break
@@ -501,25 +506,23 @@ ogni membro del gruppo come indicato nella tabella sottostante:
 
 \begin{tabular} {|P{5cm}|P{5cm}|P{5cm}|} % Qua cambiate a piacimento la larghezza
     \hline
-    \textbf{Package}          & \textbf{Progetto}         & \textbf{Sviluppo}  \\
+    \textbf{Package}      & \textbf{Progetto} & \textbf{Sviluppo} \\
     \hline
-    Dominio                   & Guerra,Palaferri,Romanini & Guerra             \\
+    GestioneAccesso       & Romanini          & Romanini          \\
     \hline
-    Log                       & Guerra,Palaferri,Romanini & Guerra             \\
+    GestioneEventi        & Romanini          & Romanini          \\
     \hline
-    RicercaFarmaci            & Guerra,Palaferri,Romanini & Palaferri          \\
+    GestioneAggiornamenti & Romanini          & Romanini          \\
     \hline
-    GestionePrenotazioni      & Guerra,Palaferri,Romanini & Palaferri,Romanini \\
+    InterfacciaUtente     & Romanini          & Romanini          \\
     \hline
-    GestioneAccesso           & Guerra,Palaferri,Romanini & Guerra,Romanini    \\
+    InterfacciaAccesso    & Romanini          & Romanini          \\
     \hline
-    GestioneFarmacia          & Guerra,Palaferri,Romanini & Palaferri,Romanini \\
+    Dominio               & Romanini          & Romanini          \\
     \hline
-    InterfacciaUtente         & Guerra,Palaferri,Romanini & Romanini           \\
+    Immagini              & Romanini          & Romanini          \\
     \hline
-    InterfacciaGestioneAccsso & Guerra,Palaferri,Romanini & Guerra             \\
-    \hline
-    InterfacciaFarmacia       & Guerra,Palaferri,Romanini & Palaferri,Romanini \\
+    Log                   & Romanini          & Romanini          \\
     \hline
 \end{tabular}
 \hfill \break
@@ -527,14 +530,17 @@ ogni membro del gruppo come indicato nella tabella sottostante:
 I tempi di rilascio sono i seguenti:
 \begin{itemize}
     \item Progettazione entro due settimane dalla data odierna
-    \item Sviluppo dei vai moduli con annessi test unitari entro una settimana dalla fine della fase di progettazione
-    \item Integrazione e testing del sistema entro una settimana dalla fine dello sviluppo
+    \item Sviluppo dei vai moduli con annessi test unitari entro due mesi dalla fine della fase di progettazione
+    \item Integrazione e testing del sistema entro un mese dalla fine dello sviluppo
 \end{itemize}
 \hfill \break
 
 \textbf{Sviluppi Futuri}
 \\
 
-Il cliente ha richiesto la creazione di un applicativo mobile per sistemi
-android e iOS, con l'obbiettivo di rendere il più pratico possibile l'utilizzo
-del programma.
+TODO
+Chat tra gli utenti
+Eventi pubblici
+gestione biglietti per gli eventi
+funzionalità aggiuntive di condivisione eventi
+visualizzazione eventi degli altri profili

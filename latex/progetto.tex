@@ -7,35 +7,36 @@
 
 Dall'analisi dei requisiti sono emersi i seguenti requisiti non funzionali:
 \begin{itemize}
-\item Tempo di risposta
-\item Usabilità
-\item Integrità dei dati
-\item Protezione dei dati 
-\item Sicurezza delle comunicazioni
+    \item Tempo di risposta
+    \item Usabilità
+    \item Affidabilità
+    \item Scalabilità
+    \item Integrità dei dati
+    \item Protezione dei dati
+    \item Sicurezza delle comunicazioni
 \end{itemize}
-La protezione dei dati e delle comunicazioni assume fondamentale importanza vista la natura del software, 
-che deve trattare dati personali e sanitari dei clienti. 
-La compromissione di questi risulterebbe in una grave perdita finanziaria e di immagine, senza considerare i danni apportati alla privacy degli utenti. 
-Inoltre, sarà necessario assicurare la sicurezza fisica dei dati immagazzinati nel sistema.
-L'introduzione di misure di sicurezza delle comunicazioni e protezione dei dati non compromette l'usabilità del sistema, ma potrebbe peggiorarne leggermente le prestazioni: 
-è possibile comunque bilanciare le due esigenze senza eccessive complicazioni mediante le tecnologie esposte in seguito. 
-Va notato inoltre che il sistema non presenta vincoli di tempo particolarmente stringenti (nessun vincolo real-time).
+
+L'affidabilità e la scalabilità assumono fondamentale importanza vista la natura del software,
+che deve permettere agli utenti di poter organizzare, coordinare e condividere eventi.
+La compromissione di questi risulterebbe in un peggioramento dell'esperienza utente, da cui consegue una perdita di reputazione o di fedeltà del cliente.
+Sarà necessario assicurare la sicurezza fisica dei dati immagazzinati nel sistema, così come la sicurezza software dei dati e delle comunicazioni.
+In caso di compromissione la perdita d'immagine e i risvolti legali sarebbero significativi.
+L'utilizzo di protocolli e tecnologie standard del settore dovrebbero garantire la sicurezza del sitema senza peggiorarne significativamente l'usabilità o le prestazioni.
+Nonostante il sistema non presenti vincoli di tempo stringenti, una caratteristica essenziale dell'applicazione sarà la velocità di distribuire gli aggiornamenti ai vari utenti.
+Inoltre, l'intuitività dell'interfaccia è fondamentale per l'usabilità e la diffusione del prodotto.
 
 \subsubsection{Scelte tecnologiche}
 
 La scelta tecnologica principale ricade sul tipo di applicazione che si andrà a
-sviluppare.  In questo caso la scelta è stata quella di sviluppare
-un'applicazione web, per vari motivi: prima di tutto, consente di avere una
-piattaforma standard accessibile da quasi tutti i dispositivi, con il solo
-requisito di un browser web. In questo modo si evita di restringere le
-possibilità di accesso al servizio.  Inoltre, un'applicazione web consente di
-avere una gestione maggiormente centralizzata ed un deployment più agevole (a
-questo proposito si veda la sezione apposita del deployment). \\
-Infine per relazionarci con il sistema esterno, che ci fornisce la lista aggiornata dei
-farmaci per ogni farmacia, ne salviamo localmente in cache un istantanea della lista in
-modo da minimizzare il tempo di risposta dell'applicazione.\\
-La cache locale verrà aggiornata ad ogni modifica del database remoto, questo
-grazie al modello publisher-subscriber, (vedi \nameref{sec:esterno})
+sviluppare.
+In questo caso la scelta è quella di sviluppare sia un'applicazione sia da browser web, che tramite dispositivo mobile, per i seguenti motivi:
+\begin{enumerate}
+    \item un'interfaccia web consente di avere una
+          piattaforma standard accessibile da quasi tutti i dispositivi, con il solo
+          requisito di un browser, potenzialmente permettendo(in base alla dimensione dello schermo) una maggior facilità di utilizzo, per rispondere all'esigenza organizzativa di medio o lungo termine.
+          In questo modo si evita di restringere le possibilità di accesso al servizio.
+    \item  l'applicazione mobile permette una gestione a breve termine e un aggiornamento costante, ed è fondamentale per recuperare le immagini dell'utente.
+\end{enumerate}
 
 \subsubsection{Scelta dell'architettura}
 
@@ -43,34 +44,36 @@ Dopo una rapida analisi, si è constatato che l'architettura più adeguata per i
 sistema è l'\textbf{architettura client-server a 3 livelli}.
 
 \paragraph{L1 -- Client}\mbox{}\\
-La componente lato Client sarà implementata da due interfacce differenti:
-
-\begin{itemize}
-\item[-] Un'interfaccia per le funzionalità relative ai clienti (registrati e non)
-\item[-] Un'interfaccia per la gestione della farmacia da parte di un operatore (farmacista)
-\end{itemize}
+La componente lato Client implementerà l'interfaccia utente, gestendo le interazioni del cliente e richiedendo i dati al server,
+salvandoli in una cache locale laddove la tecnologia lo renda possibile. Inoltre avrà la responsabilità di recuperare le immagini scattate durante l'evento.
 
 \paragraph{L2 -- Server}\mbox{}\\
-Rispettando il principio del "minimo privilegio" per limitare i danni in caso di attacco e per distribuire meglio il carico, si è deciso di scomporre i server in base alle funzionalità offerte. Si hanno quindi tre server:
+Per distribuire meglio il carico, si è deciso di scomporre i server in base alle funzionalità offerte. Si hanno quindi tre server:
 
 \begin{itemize}
-\item[-] Un server che fornisce i servizi ai clienti registrati e non
-\item[-] Un server che funge da pannello di controllo per i farmacisti
-\item[-] Un server per le funzionalità di autenticazione
+    \item[-] Un server per le funzionalità di autenticazione
+    \item[-] Un server che fornisce i servizi agli utenti
+    \item[-] Un server che gestisce la propagazione degli aggiornamenti agli utenti
 \end{itemize}
 
 \paragraph{L3 -- Persistenza}\mbox{}\\
-La gestione della persistenza verrà implementata in un server dedicato sul quale sarà installato un DBMS che gestisca i dati di tutte le farmacie aderenti al servizio.
-Su tale server sarà installato il DBMS IBM DB2.
-L'interfacciamento con il DBMS avverrà mediante la metodologia "forza bruta" utilizzando i metodi CRUD.
-Per quanto riguarda il log delle operazioni, invece, questo verrà salvato su file system (un semplice file sul server adibito)
+La gestione della persistenza verrà implementata in due server con responsabilità differenti:
+\begin{itemize}
+    \item[-] Un server sul quale sarà installato un DBMS che gestisca i dati e le relazioni dei componenti
+    \item[-] Un server per il salvataggio delle immagini e file
+\end{itemize}
+
+Il database relazionale sarà accessibile solo dal server che fornisce i servizi, per garantire il controllo dei ruoli e dei permessi.
+Le immagini saranno invece accessibili solo in lettura direttamente dai client, che dovranno però essere a conoscenza dei codici che le identificano.
+Questa conoscenza è considerata sufficente per garantire la confidenza, ammesso che l'identificativo sia lungo abbastanza, 
+ma anche un rischio accettabile, in quanto ridurrà di molto il carico del server principale. 
 
 \subsubsection{Pattern architetturali e di design}
 
-Infine, dopo un'attenta analisi, si è optato per l'adozione del pattern \textbf{Broker}: 
-un componente verrà interposto alla comunicazione Client--Server e avrà il compito di indirizzare le richieste dei client al relativo server, 
-effettuando un controllo sulle sessioni attive per determinare lo stato del client. 
-La scomposizione in diversi client e server consente di avere una separazione netta tra gli applicativi del cliente e del farmacista, 
+Infine, dopo un'attenta analisi, si è optato per l'adozione del pattern \textbf{Broker}:
+un componente verrà interposto alla comunicazione Client--Server e avrà il compito di indirizzare le richieste dei client al relativo server,
+effettuando un controllo sulle sessioni attive per determinare lo stato del client.
+La scomposizione in diversi client e server consente di avere una separazione netta tra gli applicativi del cliente e del farmacista,
 in modo da localizzare le operazioni critiche e ottenere maggiore protezione dei dati.
 Il pattern Model View Controller (\textbf{MVC}) è stato invece scelto come pattern architetturale.
 \\
@@ -105,7 +108,7 @@ Si riportano di seguito i diagrammi di package e componenti che descrivono l'arc
 \textbf{Struttura: Dominio}\\
 
 Per quanto riguarda il dominio, i diagrammi rimangono sostanzialmente uguali a quelli visti in analisi.
-Nonostante il dominio del cliente sia pressoché identico a quello del farmacista, 
+Nonostante il dominio del cliente sia pressoché identico a quello del farmacista,
 si è comunque deciso di distinguere i due domini al fine di evitare l'introduzione di classi non necessarie.
 In particolare, la parte di applicativo relativa al cliente non dovrà gestire
 né conoscere i farmacisti legati ad ogni farmacia (informazione nota solo al
@@ -134,7 +137,7 @@ server delle farmacie).
 
 Come si può notare, il dominio della farmacia presenta diversi metodi aggiuntivi (in particolare per effettuare operazioni sul cliente e per elencare farmaci)
 non necessari al cliente e anzi da nascondere ad esso per evitare che i permessi o privilegi vengano aggirati.
-Inoltre, le associazioni \texttt{Lotto} e \texttt{SelezioneFarmaco} sono state mantenute nei diagrammi per chiarezza. 
+Inoltre, le associazioni \texttt{Lotto} e \texttt{SelezioneFarmaco} sono state mantenute nei diagrammi per chiarezza.
 L'associazione \texttt{Lotto} dovrà necessariamente essere una classe a sé stante,
 mentre l'associazione \texttt{SelezioneFarmaco} potrà essere concretizzata in classe o sostituita da un semplice Integer. Quest'ultima scelta è lasciata agli implementatori.
 Le associazioni vere e proprie dovranno poi essere implementate mediante una \textbf{mappa}, ad esempio con un oggetto del tipo \mbox{\texttt{HashMap<Farmaco, Lotto>}}
@@ -157,9 +160,9 @@ i cui dettagli vengono esposti nel prossimo paragrafo.
 \paragraph{Struttura: Controller}\mbox{}\\
 
 Si è deciso di utilizzare una classe \texttt{Controller} in cui inserire le funzionalità relative alla persistenza (Database e Log).
-Si è pensato di posizionare questa classe in cima alla gerarchia dei controller: 
+Si è pensato di posizionare questa classe in cima alla gerarchia dei controller:
 in questo modo, le funzionalità comuni di lettura/scrittura su database e log sono riutilizzabili dai controller figli senza bisogno di reimplementarle.
-Nonostante il controller "monolitico" non rispetti il \textit{Single Responsibility Principle}, 
+Nonostante il controller "monolitico" non rispetti il \textit{Single Responsibility Principle},
 abbiamo comunque optato per questa soluzione, in quanto le funzionalità relative al database e al logging risultano facilmente accoppiabili essendo entrambe legate a un qualche tipo di persistenza.
 Inoltre, non si prevede alcun tipo di estensione/modifica per quanto riguarda la persistenza.
 \vspace{2em}
@@ -435,14 +438,14 @@ Esempio: File \texttt{/var/log/farmabyte.log}\\
 \texttt{\$ Data - Ora - Operazione - Descrizione - ID utente}\\
 \textbf{Nota}: l'ID utente è l'identificativo dell'esecutore di tale operazione, può essere quindi sia un cliente che un farmacista.
 Se nell'eseguire l'operazione, l'utente interagisce o modifica lo stato di altri utenti questo dovrà essere specificato nella descrizione (Caso tipico: farmacista verifica l'identità di un cliente).
-L'operazione sarà semplicemente il nome del metodo invocato. 
+L'operazione sarà semplicemente il nome del metodo invocato.
 Si noti infine che ogni riga del file di log inizia con il carattere \texttt{\$}, tale carattere viene usato come delimitatore e non sarà quindi utilizzabile all'interno della descrizione (Né nella definizione degli altri campi).
 
 \newpage
 
 \subsection{Progettazione del collaudo}
 
-Avendo lasciato inalterato il modello del dominio dalla fase di analisi, introducendo solo qualche classe e interfaccia (principalmente per il pattern Observer), 
+Avendo lasciato inalterato il modello del dominio dalla fase di analisi, introducendo solo qualche classe e interfaccia (principalmente per il pattern Observer),
 i test per il collaudo visti in fase di analisi sono stati ritenuti sufficienti.
 
 \vspace{2em}
@@ -450,7 +453,7 @@ i test per il collaudo visti in fase di analisi sono stati ritenuti sufficienti.
 \subsection{Progettazione per il deployment}
 
 Poiché si è scelto di realizzare il programma come applicazione web, il deployment non necessiterà di particolari configurazioni lato client.
-Tutte le interfacce (per clienti, farmacisti, login) sono in realtà memorizzate nel server locale e potranno essere quindi aggiornate automaticamente e in modo centralizzato dagli amministratori di sistema. 
+Tutte le interfacce (per clienti, farmacisti, login) sono in realtà memorizzate nel server locale e potranno essere quindi aggiornate automaticamente e in modo centralizzato dagli amministratori di sistema.
 
 \newpage
 
