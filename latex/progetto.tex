@@ -37,7 +37,7 @@ In questo caso la scelta è quella di sviluppare sia un'applicazione sia da brow
           In questo modo si evita di restringere le possibilità di accesso al servizio.
     \item  l'applicazione mobile permette una gestione a breve termine e un aggiornamento costante, ed è fondamentale per recuperare le immagini dell'utente.
 \end{enumerate}
-
+\newpage
 \subsubsection{Scelta dell'architettura}
 
 Dopo una rapida analisi, si è constatato che l'architettura più adeguata per il
@@ -52,7 +52,7 @@ Per distribuire meglio il carico, si è deciso di scomporre i server in base all
 
 \begin{itemize}
     \item[-] Un server per le funzionalità di autenticazione
-    \item[-] Un server che fornisce i servizi agli utenti
+    \item[-] Un server principale che fornisce i servizi agli utenti
     \item[-] Un server che gestisce la propagazione degli aggiornamenti agli utenti
 \end{itemize}
 
@@ -70,22 +70,18 @@ ma anche un rischio accettabile, in quanto ridurrà di molto il carico del serve
 
 \subsubsection{Pattern architetturali e di design}
 
-Infine, dopo un'attenta analisi, si è optato per l'adozione del pattern \textbf{Broker}:
-un componente verrà interposto alla comunicazione Client--Server e avrà il compito di indirizzare le richieste dei client al relativo server,
-effettuando un controllo sulle sessioni attive per determinare lo stato del client.
-La scomposizione in diversi client e server consente di avere una separazione netta tra gli applicativi del cliente e del farmacista,
-in modo da localizzare le operazioni critiche e ottenere maggiore protezione dei dati.
-Il pattern Model View Controller (\textbf{MVC}) è stato invece scelto come pattern architetturale.
-\\
-Chiaramente l'affidabilità del sistema dipende dalla robustezza del broker e soprattutto del sistema di autenticazione.
-\\
+Il pattern Client-Server è stato scelto come pattern architetturale per gestire l'accesso, le immagini e i servizi principali.\\
+Il pattern Event Driven sarà invece usato per notificare i Client degli aggiornamenti.
+A livello di design distinguiamo tre componenti principali: Model, View e Controller.
+Mentre la View sarà delegata completamente ai Client, Model e Controller saranno invece suddivisi tra il Client e il Server, 
+in base alle necessità di caching dei dati e della località delle operazioni di business.\\
 Si riportano di seguito i diagrammi di package e componenti che descrivono l'architettura del sistema.
 
 \newpage
 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{immagini/Package-progettazione.png}
+        \includegraphics[width=\textwidth]{ProgettoDiagrammaPackage.jpg}
         \caption{Diagramma dei package}
     \end{center}
 \end{figure}
@@ -94,7 +90,7 @@ Si riportano di seguito i diagrammi di package e componenti che descrivono l'arc
 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{immagini/Componenti-progettazione.png}
+        \includegraphics[width=\textwidth]{ProgettoDiagrammaComponenti.jpg}
         \caption{Diagramma dei componenti}
     \end{center}
 \end{figure}
@@ -107,311 +103,230 @@ Si riportano di seguito i diagrammi di package e componenti che descrivono l'arc
 
 \textbf{Struttura: Dominio}\\
 
-Per quanto riguarda il dominio, i diagrammi rimangono sostanzialmente uguali a quelli visti in analisi.
-Nonostante il dominio del cliente sia pressoché identico a quello del farmacista,
-si è comunque deciso di distinguere i due domini al fine di evitare l'introduzione di classi non necessarie.
-In particolare, la parte di applicativo relativa al cliente non dovrà gestire
-né conoscere i farmacisti legati ad ogni farmacia (informazione nota solo al
-server delle farmacie).
+Per quanto riguarda il dominio, distinguiamo il dominio del server dal dominio del client.
 
-\vspace{2em}
+\vspace{1em}
 
-\textbf{Diagramma di dettaglio: Dominio Clienti}
-
+\textbf{Diagramma di dettaglio: Dominio Server}\\
+Aggiungiamo a tutti i componenti principali un identificativo anfanumerico chiamato hash, 
+e le date di creazione e di ultima modifica per gestire meglio i log e gli aggiornamenti.
+Inoltre, aggiungiamo un componente per definire il ruolo dell'utente sul profilo.
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[scale=0.53]{immagini/DominioCliente-progettazione.jpg}
+        \includegraphics[scale=0.45]{ProgettoDominioServer.jpg}
     \end{center}
 \end{figure}
 
 \newpage
 
-\textbf{Diagramma di dettaglio: Dominio Farmacia}
+\textbf{Diagramma di dettaglio: Dominio Client}\\
+Dal punto di vista del client alcune relazioni non sono più rilevanti o vengono semplificate integrando alcuni valori all'interno di altri elementi del dominio. 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[scale=0.56]{immagini/DominioFarmacia-progettazione.jpg}
+        \includegraphics[scale=0.56]{ProgettoDominioClient.jpg}
     \end{center}
 \end{figure}
-
+\clearpage
 \newpage
 
-Come si può notare, il dominio della farmacia presenta diversi metodi aggiuntivi (in particolare per effettuare operazioni sul cliente e per elencare farmaci)
-non necessari al cliente e anzi da nascondere ad esso per evitare che i permessi o privilegi vengano aggirati.
-Inoltre, le associazioni \texttt{Lotto} e \texttt{SelezioneFarmaco} sono state mantenute nei diagrammi per chiarezza.
-L'associazione \texttt{Lotto} dovrà necessariamente essere una classe a sé stante,
-mentre l'associazione \texttt{SelezioneFarmaco} potrà essere concretizzata in classe o sostituita da un semplice Integer. Quest'ultima scelta è lasciata agli implementatori.
-Le associazioni vere e proprie dovranno poi essere implementate mediante una \textbf{mappa}, ad esempio con un oggetto del tipo \mbox{\texttt{HashMap<Farmaco, Lotto>}}
-\vspace{2em}
-
-\textbf{Diagramma di dettaglio: Interfacce}
+\textbf{Diagramma di dettaglio: Interfacce Gestione Accesso e Gestione Aggiornamenti}
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{immagini/Interfacce-progettazione.png}
+        \includegraphics[width=\textwidth]{ProgettoInterfacceAccesso.jpg}
     \end{center}
 \end{figure}
+\\
+\textbf{Diagramma di dettaglio: Interfacce Client}
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{ProgettoInterfacceClient.jpg}
+    \end{center}
+\end{figure}
+\newpage
+\textbf{Diagramma di dettaglio: Interfacce Server}
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{ProgettoInterfacceServer.jpg}
+    \end{center}
+\end{figure}\\
 
+Le interfacce client e server risultano molto simili in quanto il client, prima di fare una richiesta dati al server, controllerà la cache locale per cercare i dati.
 L'aggiunta di tali interfacce consente di applicare il \textit{Dependency Inversion Principle}
 in modo da disaccoppiare gli utilizzatori dalle implementazioni, che potrebbero cambiare.
-L'interfaccia \texttt{IMagazzinoObserver} è stata introdotta per l'utilizzo di un pattern Observer,
-i cui dettagli vengono esposti nel prossimo paragrafo.
+
 
 \newpage
 
 \paragraph{Struttura: Controller}\mbox{}\\
 
-Si è deciso di utilizzare una classe \texttt{Controller} in cui inserire le funzionalità relative alla persistenza (Database e Log).
-Si è pensato di posizionare questa classe in cima alla gerarchia dei controller:
-in questo modo, le funzionalità comuni di lettura/scrittura su database e log sono riutilizzabili dai controller figli senza bisogno di reimplementarle.
-Nonostante il controller "monolitico" non rispetti il \textit{Single Responsibility Principle},
-abbiamo comunque optato per questa soluzione, in quanto le funzionalità relative al database e al logging risultano facilmente accoppiabili essendo entrambe legate a un qualche tipo di persistenza.
-Inoltre, non si prevede alcun tipo di estensione/modifica per quanto riguarda la persistenza.
+Ogni interfaccia verrà implementata da un relativo controller.
 \vspace{2em}
 
-\textbf{Diagramma di dettaglio: RicercaFarmaci, GestionePrenotazioni}
+\textbf{Diagramma di dettaglio: Gestione Accesso e Gestione Aggiornamenti}
+\\Introduciamo un Controller per la connessione con la persistenza del log
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{immagini/ControllerCliente-progettazione.png}
+        \includegraphics[width=\textwidth]{ProgettoControllerAccesso.jpg}
     \end{center}
 \end{figure}
 
 \newpage
 
-\textbf{Diagramma di dettaglio: GestioneFarmacia}
+\textbf{Diagramma di dettaglio: Client}
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{immagini/DettaglioFarmacia-ControllerFarmacia.jpg}
+        \includegraphics[width=\textwidth]{ProgettoControllerClient.jpg}
     \end{center}
 \end{figure}
 
-Anche i controller presenti sul server relativo alle farmacie seguono lo stesso principio esposto sopra.
 
 \newpage
 
-\textbf{Diagramma di dettaglio: GestioneAccesso}
+\textbf{Diagramma di dettaglio: Server}
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{immagini/ControllerLogin-progettazione.png}
-    \end{center}
-\end{figure}
-
-Il diagramma di dettaglio del server login risulta più complesso degli altri due
-poiché contiene le ulteriori classi necessarie per implementare l'aggiornamento dello stato dei clienti
-e caching del database in seguito al ricevimento di eventi.
-In particolare, per implementare il caching locale del database remoto contenente i dati dei magazzini,
-si è deciso di utilizzare un pattern \textit{Observer}: Un'istanza della classe \texttt{MagazzinoObserver} viene registrata
-nel \texttt{MagazzinoWorker}. Quest'ultimo poi comunicherà con il server remoto mediante un protocollo prestabilito e,
-alla ricezione di un aggiornamento da parte del server, notificherà l'Observer. Lo scambio dei dati riguardanti l'aggiornamento può avvenire tra Worker e Observer in diversi modi,
-pertanto la scelta viene lasciata agli implementatori.
-
-Si noti che la scelta del pattern Observer è dettata dal fatto che l'evento di aggiornamento del database remoto può risultare importante anche per future estensioni del software:
-per questo motivo l'Observer si basa sull'interfaccia \texttt{IMagazzinoObserver}.
-
-Per quanto riguarda invece l'aggiornamento dello stato dei clienti a fine giornata,
-il metodo \texttt{updateUtenti()} della classe \texttt{UtentiUpdater} verrà invocato automaticamente
-allo scattare di un nuovo giorno, in base all'orario del server.
-
-\newpage
-
-\textbf{Diagramma di dettaglio: Broker}
-\begin{figure}[h!]
-    \begin{center}
-        \includegraphics[width=\textwidth]{immagini/Broker.jpg}
+        \includegraphics[width=\textwidth]{ProgettoControllerServer.jpg}
     \end{center}
 \end{figure}
 
 \newpage
 
 
-\textbf{Diagramma di dettaglio: InterfacciaUtente}
+
+
+
+\textbf{Diagramma di dettaglio: InterfacciaUtente - Eventi}
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=0.9\textwidth]{immagini/ViewCliente-progettazione.jpg}
+        \includegraphics[width=0.9\textwidth]{ProgettoViewEventi.jpg}
+    \end{center}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{ProgettoVistaConfermati.png}
+    \caption{Eventi confermati}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{ProgettoVistaProposti.png}
+    \caption{Eventi proposti}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{ProgettoVistaEvento.png}
+    \caption{Dettaglio evento}
+\end{figure}
+\clearpage
+
+\textbf{Diagramma di dettaglio: InterfacciaUtente - Gruppi}
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=0.9\textwidth]{ProgettoViewGruppi.jpg}
+    \end{center}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{ProgettoVistaGruppi.png}
+    \caption{Gruppi}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{ProgettoVistaCercaProfili.png}
+    \caption{Cerca profili}
+\end{figure}
+\clearpage
+
+\textbf{Diagramma di dettaglio: InterfacciaUtente - Profili}
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=0.6\textwidth]{ProgettoViewProfili.jpg}
     \end{center}
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.9\textwidth]{VisteUtente-Home.jpg}
-    \caption{Home}
-\end{figure}
-L'interfaccia utente appena entrato nel sito consente di cercare immediatamente
-un farmaco appena inserita la località in cui effettuare la ricerca. Inoltre
-sarà visibile la quantità approssimativa dei farmaci rimasti per ogni farmacia.
-Infine sarà possibile effettuare il login per poter accedere alle funzionalità
-di prenotazione dei farmaci.
-
-\newpage
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.9\textwidth]{VisteUtente-HomeLogin.jpg}
-    \caption{HomeLogin}
-\end{figure}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.9\textwidth]{VisteUtente-Prenotazioni.jpg}
-    \caption{Prenotazioni}
+    \includegraphics[width=\textwidth]{ProgettoVistaProfili.png}
+    \caption{Profili collegati}
 \end{figure}
 
 \newpage
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.9\textwidth]{VisteUtente-Nuova Prenotazione.jpg}
-    \caption{Nuova Prenotazione}
-\end{figure}
-La schermata di NuovaPrenotazione permette di indicare la farmacia e la data
-per cui effettuare la prenotazione. Sarà possibile aggiungere farmaci
-prima della conferma utilizzando la stessa funzione di RicercaFarmaco, che
-quindi permetta di inserire solo farmaci disponibili nella farmacia scelta.
-
-\newpage
-
-\textbf{Diagramma di dettaglio: InterfacciaFarmacista}
-\\
-\begin{figure}[h!]
-    \begin{center}
-        \includegraphics[width=0.9\textwidth]{ViewFarmacia-progettazione.jpg}
-    \end{center}
-\end{figure}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.9\textwidth]{VisteFarmacia-HomeFarmacista.jpg}
-    \caption{Home}
-\end{figure}
-\newpage
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.9\textwidth]{VisteFarmacia-Prenotazioni.jpg}
-    \caption{Prenotazioni}
-\end{figure}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.9\textwidth]{VisteFarmacia-Utenti.jpg}
-    \caption{Utenti}
-\end{figure}
-La schermata Utenti permette ai farmacisti di visualizzare lo stato degli
-utenti che non hanno finalizzato le prenotazioni e gli permette di bloccarli o
-eventualmente sbloccarli.
-\newpage
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.9\textwidth]{VisteFarmacia-Verifica Identità.jpg}
-    \caption{VerificaIdentità}
-\end{figure}
-
-\vspace{3em}
 
 \textbf{Diagramma di dettaglio: InterfacciaGestioneAccesso}
+
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{DettaglioBrokerLoginInterfacce-ViewLogin.jpg}
+        \includegraphics[width=0.9\textwidth]{ProgettoViewGestioneAccesso.jpg}
     \end{center}
 \end{figure}
 
-L'interfaccia di GestioneAccesso è composta dalle view che permettono a clienti e farmacisti di registrarsi e/o effettuare l'accesso al servizio.
-Pertanto, è presente in entrambi i client, completata dalle ulteriori interfacce specifiche del client.
-\\
-
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.9\textwidth]{VisteUtente-Login.jpg}
-    \caption{Login Utente}
+    \includegraphics[width=\textwidth]{ProgettoVistaLogin.png}
+    \caption{Login}
 \end{figure}
-
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.9\textwidth]{VisteUtente-Registrazione.jpg}
-    \caption{Registrazione Utente}
+    \includegraphics[width=\textwidth]{ProgettoVistaRegistrazione.png}
+    \caption{Registrazione}
 \end{figure}
-\newpage
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.9\textwidth]{VisteFarmacia-Login.jpg}
-    \caption{Login Farmacista}
-\end{figure}
-\newpage
+ 
+\clearpage
 
 \subsubsection{Interazione}
 
-Si riportano di seguito i vari diagrammi di sequenza, aggiornati rispetto a quelli visti in fase di analisi.
-
+Si riportano di seguito i vari diagrammi di sequenza, aggiornati rispetto a quelli visti in fase di analisi.\\
+TODO aggiungere GestioneAggiornamentiController
 \vspace{3em}
 
-\textbf{Diagramma di Sequenza: LoginFarmacista}
-
+\textbf{Diagramma di Sequenza: Registrazione}
 \begin{figure}[h!]
-    \begin{center}
-        \includegraphics[width=\textwidth]{immagini/Interazione-LoginUtente-progettaz.jpg}
-    \end{center}
+    \centering
+    \rotatebox{90}{\includegraphics[width=\textwidth]{PIRegistrazione.jpg}}
 \end{figure}
-
-Si riporta solo il diagramma del login del farmacista. Il ViewLogin del cliente è
-pressochè identico se non per le View, che in quel caso sarebbero ViewLoginUtente e HomeServizio).
-
-\newpage
-
-\textbf{Diagramma di Sequenza: RegistrazioneUtente}
-
+\clearpage
+\textbf{Diagramma di Sequenza: Visualizza Eventi Confermati}
 \begin{figure}[h!]
-    \begin{center}
-        \includegraphics[width=\textwidth]{immagini/Interazione-RegistrazioneUtente-progettaz.jpg}
-    \end{center}
-\end{figure}
-
-\newpage
-\textbf{Diagramma di Sequenza: VerificaIdentità}
-
+    \centering
+    \includegraphics[width=\textwidth]{PIVisualizzaEventiConfermati.jpg}
+\end{figure}\\
+\textbf{Diagramma di Sequenza: Visualizza Evento}
 \begin{figure}[h!]
-    \begin{center}
-        \includegraphics[width=\textwidth]{immagini/Interazione-VerificaIdentità-progettaz.jpg}
-        %\caption{Diagramma di Sequenza: VerificaIdentità}
-    \end{center}
+    \centering
+    \includegraphics[width=\textwidth]{PIVisualizzaEvento.jpg}
 \end{figure}
-
-\textbf{Diagramma di Sequenza: SospensioneUtenza}
+\clearpage
+\textbf{Diagramma di Sequenza: Crea Evento}
 \begin{figure}[h!]
-    \begin{center}
-        \includegraphics[width=\textwidth]{immagini/Interazione-SospensioneUtenza-progettaz.jpg}
-        %\caption{Diagramma di Sequenza: SospensioneUtenza}
-    \end{center}
-\end{figure}
-
-
-\newpage
-
-\textbf{Diagramma di Sequenza: NuovaPrenotazione}
+    \centering
+    \includegraphics[width=\textwidth]{PICreaEvento.jpg}
+\end{figure}\\
+\textbf{Diagramma di Sequenza: Modifica Evento}
 \begin{figure}[h!]
-    \begin{center}
-        \includegraphics[width=\textwidth]{immagini/Interazione-NuovaPrenotazione-progettaz.jpg}
-    \end{center}
+    \centering
+    \includegraphics[width=\textwidth]{PIModificaEvento.jpg}
 \end{figure}
-
-\newpage
-
-\textbf{Diagramma di Sequenza: ConfermaPrenotazione}
+\clearpage
+\textbf{Diagramma di Sequenza: Conferma Evento}
 \begin{figure}[h!]
-    \begin{center}
-        \includegraphics[width=\textwidth]{immagini/Interazione-ConfermaPrenotazione-progettaz.jpg}
-    \end{center}
+    \centering
+    \includegraphics[width=\textwidth]{PIConfermaEvento.jpg}
 \end{figure}
-
-\newpage
-
-\textbf{Diagramma di Sequenza: RicercaFarmaci}
+\clearpage
+\textbf{Diagramma di Sequenza: Conferma Immagini}
 \begin{figure}[h!]
-    \begin{center}
-        \includegraphics[width=\textwidth]{immagini/Interazione-RicercaFarmaco-progettaz.jpg}
-    \end{center}
+    \centering
+    \rotatebox{90}{\includegraphics[width=\textwidth]{PIConfermaImmagini.jpg}}
 \end{figure}
+\clearpage
 
-\newpage
+\textbf{Diagramma di Sequenza: condividi Evento ai Gruppi}
+TODO\\
+\textbf{Diagramma di Sequenza: Cerca profili}
+TODO\\
+\textbf{Diagramma di Sequenza: aggiorna}
+TODO
+
+\clearpage
 
 \subsection{Progettazione della persistenza}
 
@@ -419,43 +334,32 @@ pressochè identico se non per le View, che in quel caso sarebbero ViewLoginUten
 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[scale=0.545]{immagini/DiagrammaE-R.jpg}
-        %\caption{Persistenza: Diagramma E-R}
+        \includegraphics[scale=0.545]{ProgettoDiagrammaER.jpg}
     \end{center}
 \end{figure}
 
 Come si può notare, il diagramma E-R della persistenza segue precisamente la struttura del modello del dominio mostrato precedentemente.
 La differenza sta nelle associazioni, che presumibilmente in fase di progettazione logica ed implementazione del database verranno concretizzate in classi di associazione,
-si avranno quindi due tabelle ulteriori (\texttt{Lotto} e \texttt{Selezione}) per modellare le associazioni.
+si avranno quindi due tabelle ulteriori (\texttt{ProfileEvent} e \texttt{UserRole}) per modellare le associazioni.
 
 \subsubsection{Formato dei file di log}
 
 Il formato del file di log su cui il sistema terrà traccia delle operazioni
 sarà il seguente:\\
 
-Esempio: File \texttt{/var/log/farmabyte.log}\\
+Esempio: File \texttt{/var/log/wyd.log}\\
 
 \texttt{\$ Data - Ora - Operazione - Descrizione - ID utente}\\
-\textbf{Nota}: l'ID utente è l'identificativo dell'esecutore di tale operazione, può essere quindi sia un cliente che un farmacista.
-Se nell'eseguire l'operazione, l'utente interagisce o modifica lo stato di altri utenti questo dovrà essere specificato nella descrizione (Caso tipico: farmacista verifica l'identità di un cliente).
-L'operazione sarà semplicemente il nome del metodo invocato.
-Si noti infine che ogni riga del file di log inizia con il carattere \texttt{\$}, tale carattere viene usato come delimitatore e non sarà quindi utilizzabile all'interno della descrizione (Né nella definizione degli altri campi).
-
+\textbf{Nota}: l'ID utente è l'identificativo dell'esecutore di tale operazione.
 \newpage
 
-\subsection{Progettazione del collaudo}
+%\subsection{Progettazione del collaudo}
 
-Avendo lasciato inalterato il modello del dominio dalla fase di analisi, introducendo solo qualche classe e interfaccia (principalmente per il pattern Observer),
-i test per il collaudo visti in fase di analisi sono stati ritenuti sufficienti.
+%\vspace{2em}
 
-\vspace{2em}
+%\subsection{Progettazione per il deployment}
 
-\subsection{Progettazione per il deployment}
-
-Poiché si è scelto di realizzare il programma come applicazione web, il deployment non necessiterà di particolari configurazioni lato client.
-Tutte le interfacce (per clienti, farmacisti, login) sono in realtà memorizzate nel server locale e potranno essere quindi aggiornate automaticamente e in modo centralizzato dagli amministratori di sistema.
-
-\newpage
+%\newpage
 
 \subsection{Deployment}
 
@@ -463,16 +367,14 @@ Tutte le interfacce (per clienti, farmacisti, login) sono in realtà memorizzate
 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{immagini/Deployment-Artefatti.jpg}
-        %\caption{Deployment: Artefatti}
+        \includegraphics[width=\textwidth]{ProgettoDeploymentArtefatti.jpg}
     \end{center}
 \end{figure}
-
+\newpage
 \subsubsection{Deployment Type-Level}
 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{immagini/Deployment-TypeLevel.jpg}
-        %\caption{Deployment Type-Level}
+        \includegraphics[width=\textwidth]{ProgettoDeploymentTypeLevel.jpg}
     \end{center}
 \end{figure}
