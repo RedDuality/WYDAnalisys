@@ -6,7 +6,7 @@
 \textbf{Tabella delle Funzionalità}
 \hfill \break
 
-\begin{tabular} {|P{4cm}|P{4cm}|P{3.5cm}|P{4cm}|} % Qua cambiate a piacimento la larghezza
+\begin{tabular} {|P{4cm}|P{4cm}|P{3.5cm}|P{4cm}|}
     \hline
     \textbf{Funzionalità} & \textbf{Tipo}                                                 & \textbf{Grado di complessità} & \textbf{Requisiti Collegati}                    \\
     \hline
@@ -14,32 +14,33 @@
     \hline
     Registrazione         & Interazione esterno e memorizzazione dati                     & semplice                      & R1F                                             \\
     \hline
-    EventiConfermati      & Interazione esterno e gestione dati                           & complessa                     & R4F, R8F                                        \\
+    EventiConfermati      & Interazione esterno e gestione dati                           & complessa                     & R3F, R8F                                        \\
     \hline
-    EventiProposti        & Interazione esterno e gestione dati                           & complessa                     & R5F, R9F                                        \\
+    EventiProposti        & Interazione esterno e gestione dati                           & complessa                     & R4F, R9F                                        \\
     \hline
-    GestioneGruppi        & Interazione esterno e gestione dati                           & complessa                     & R13F, R14F                                      \\
+    GestioneGruppi        & Interazione esterno e gestione dati                           & complessa                     & R15F, R16F                                      \\
     \hline
-    GestioneProfili       & Interazione esterno e gestione dati                           & complessa                     & R10F, R12F                                      \\
+    GestioneProfili       & Interazione esterno e gestione dati                           & complessa                     & R17F, R18F, R19F                                \\
     \hline
-    VisualizzaEvento      & Interazione esterno e gestione, lettura e memorizzazione dati & complessa                     & R5F, R6F, R7F, R8F, R9F, R14F, R15F, R18F, R20F \\
+    VisualizzaEvento      & Interazione esterno e gestione, lettura e memorizzazione dati & complessa                     & R5F, R6F, R7F, R8F, R9F, R10F, R11F, R12F, R14F \\
     \hline
-    AggiornaEvento        & Gestione dati                                                 & complessa                     & R17F                                            \\
+    AggiornaEvento        & Gestione dati                                                 & complessa                     & R20F                                            \\
     \hline
-    RecuperaImmagini      & Lettura dati                                                  & complessa                     & R19F                                            \\
+    RecuperaImmagini      & Lettura dati                                                  & complessa                     & R13F                                            \\
     \hline
     ScritturaLog          & Memorizzazione dati                                           & semplice                      & R21F                                            \\
     \hline
 \end{tabular}
 
 \hfill \break
-
+\clearpage
 \textbf{Registrazione: Tabella Informazioni/Flusso}
 \hfill \break
 
 \begin{tabular} {|P{3cm}|P{3cm}|P{3cm}|P{3cm}|P{3cm}|}
     \hline
     \textbf{Informazione} & \textbf{Tipo} & \textbf{Livello protezione/privacy} & \textbf{Input/Output} & \textbf{Vincoli}                                  \\
+    \hline
     Email                 & semplice      & Protezione alta                     & Input                 & Deve essere di 256 caratteri e del formato giusto \\
     \hline
     Password              & semplice      & Protezione molto alta               & Input                 & Deve essere almeno di 8 caratteri                 \\
@@ -118,7 +119,7 @@
     \hline
 \end{tabular}
 \hfill \break
-\newpage
+
 \textbf{VisualizzaEvento: Tabella Informazioni/Flusso}
 \hfill \break
 
@@ -144,7 +145,7 @@
     \hline
 \end{tabular}
 \hfill \break
-
+\clearpage
 \textbf{AggiornaEvento: Tabella Informazioni/Flusso}
 \hfill \break
 
@@ -468,7 +469,7 @@ In seguito saranno riportati i principali diagrammi di sequenza durante un norma
     \end{center}
 \end{figure}
 \hfill \break
-
+\clearpage
 \textbf{Diagramma di Sequenza: Carica Immagini}
 
 \begin{figure}[h!]
@@ -486,8 +487,7 @@ In seguito saranno riportati i principali diagrammi di sequenza durante un norma
     \end{center}
 \end{figure}
 \hfill \break
-\newpage
-
+\clearpage
 \textbf{Diagramma di Sequenza: Condividi Evento ai gruppi}
 
 \begin{figure}[h!]
@@ -541,10 +541,20 @@ I tempi di rilascio sono i seguenti:
 
 \textbf{Sviluppi Futuri}
 \\
+Gli sviluppi futuri potranno comprendere, in base a decisioni di di marketing:
+\begin{itemize}
+    \item La visualizzazione degli impegni degli altri profili
+    \item L'implementazione di una chat per ogni gruppo
+    \item Sviluppo di strumenti utili all'organizzazione dei gruppi, quali:
+          \begin{itemize}
+              \item form per combinare le disponibilità reciproche
+              \item appunti condivisi(liste della spesa o note su chi porta cosa)
+              \item calcolo delle spese compiute da ciascun componente
+          \end{itemize}
+    \item La creazione di profili pubblici che possono essere seguiti
+    \item La creazione di eventi pubblici
+    \item Una funzionalità di ricerca degli eventi pubblici
+    \item Supporto alla gestione di prenotazione e organizzazione degli eventi, dalle liste di attesa alla vendita dei biglietti
+    \item La possibilità per le aziende di gestire in locale il proprio server e i relativi dati
+\end{itemize}
 
-TODO
-Chat tra gli utenti
-Eventi pubblici
-gestione biglietti per gli eventi
-funzionalità aggiuntive di condivisione eventi
-visualizzazione eventi degli altri profili

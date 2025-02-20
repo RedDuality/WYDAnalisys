@@ -59,21 +59,21 @@ Per distribuire meglio il carico, si è deciso di scomporre i server in base all
 \paragraph{L3 -- Persistenza}\mbox{}\\
 La gestione della persistenza verrà implementata in due server con responsabilità differenti:
 \begin{itemize}
-    \item[-] Un server sul quale sarà installato un DBMS che gestisca i dati e le relazioni dei componenti
+    \item[-] Un server sul quale sarà installato un DBMS relazionale che gestisca i dati e le relazioni dei componenti
     \item[-] Un server per il salvataggio delle immagini e file
 \end{itemize}
 
 Il database relazionale sarà accessibile solo dal server che fornisce i servizi, per garantire il controllo dei ruoli e dei permessi.
 Le immagini saranno invece accessibili solo in lettura direttamente dai client, che dovranno però essere a conoscenza dei codici che le identificano.
-Questa conoscenza è considerata sufficente per garantire la confidenza, ammesso che l'identificativo sia lungo abbastanza, 
-ma anche un rischio accettabile, in quanto ridurrà di molto il carico del server principale. 
+Questa conoscenza è considerata sufficente per garantire la confidenza, ammesso che l'identificativo sia lungo abbastanza,
+ma anche un rischio accettabile, in quanto ridurrà di molto il carico del server principale.
 
 \subsubsection{Pattern architetturali e di design}
 
 Il pattern Client-Server è stato scelto come pattern architetturale per gestire l'accesso, le immagini e i servizi principali.\\
 Il pattern Event Driven sarà invece usato per notificare i Client degli aggiornamenti.
 A livello di design distinguiamo tre componenti principali: Model, View e Controller.
-Mentre la View sarà delegata completamente ai Client, Model e Controller saranno invece suddivisi tra il Client e il Server, 
+Mentre la View sarà delegata completamente ai Client, Model e Controller saranno invece suddivisi tra il Client e il Server,
 in base alle necessità di caching dei dati e della località delle operazioni di business.\\
 Si riportano di seguito i diagrammi di package e componenti che descrivono l'architettura del sistema.
 
@@ -101,14 +101,14 @@ Si riportano di seguito i diagrammi di package e componenti che descrivono l'arc
 
 \subsubsection{Struttura}
 
-\textbf{Struttura: Dominio}\\
+\paragraph{Struttura: Dominio}\mbox{}\\
 
 Per quanto riguarda il dominio, distinguiamo il dominio del server dal dominio del client.
 
 \vspace{1em}
 
 \textbf{Diagramma di dettaglio: Dominio Server}\\
-Aggiungiamo a tutti i componenti principali un identificativo anfanumerico chiamato hash, 
+Aggiungiamo a tutti i componenti principali un identificativo anfanumerico chiamato hash,
 e le date di creazione e di ultima modifica per gestire meglio i log e gli aggiornamenti.
 Inoltre, aggiungiamo un componente per definire il ruolo dell'utente sul profilo.
 \begin{figure}[h!]
@@ -120,15 +120,14 @@ Inoltre, aggiungiamo un componente per definire il ruolo dell'utente sul profilo
 \newpage
 
 \textbf{Diagramma di dettaglio: Dominio Client}\\
-Dal punto di vista del client alcune relazioni non sono più rilevanti o vengono semplificate integrando alcuni valori all'interno di altri elementi del dominio. 
+Dal punto di vista del client alcune relazioni non sono più rilevanti o vengono semplificate integrando alcuni valori all'interno di altri elementi del dominio.
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.56]{ProgettoDominioClient.jpg}
     \end{center}
 \end{figure}
 \clearpage
-\newpage
-
+\paragraph{Struttura: Interfacce}\mbox{}\\
 \textbf{Diagramma di dettaglio: Interfacce Gestione Accesso e Gestione Aggiornamenti}
 \begin{figure}[h!]
     \begin{center}
@@ -190,8 +189,6 @@ Ogni interfaccia verrà implementata da un relativo controller.
 \end{figure}
 
 \newpage
-
-
 
 
 
@@ -269,7 +266,7 @@ Ogni interfaccia verrà implementata da un relativo controller.
     \includegraphics[width=\textwidth]{ProgettoVistaRegistrazione.png}
     \caption{Registrazione}
 \end{figure}
- 
+
 \clearpage
 
 \subsubsection{Interazione}
@@ -315,8 +312,9 @@ TODO aggiungere GestioneAggiornamentiController
 \textbf{Diagramma di Sequenza: Conferma Immagini}
 \begin{figure}[h!]
     \centering
-    \rotatebox{90}{\includegraphics[width=\textwidth]{PIConfermaImmagini.jpg}}
+    \adjustbox{valign=c, width=0.95\textheight, angle=90}{\includegraphics{PIConfermaImmagini.jpg}}
 \end{figure}
+
 \clearpage
 
 \textbf{Diagramma di Sequenza: condividi Evento ai Gruppi}

@@ -11,21 +11,21 @@
   \item[-] La data di fine deve essere successiva alla data di inizio.
   \item[-] L’utente può modificare un evento.
   \item[-] L’utente può confermare un evento condiviso, o disdire un evento confermato.
-  \item[-] L’utente può avere più profili, vedere in contemporanea gli eventi di tutti i profili associati ma effettuare le azioni a nome di uno solo.
-  \item[-] L’utente può cercare altri profili e creare un’associazione tra il profilo cercato e quello che sta usando.
-  \item[-] I profili possono avere associazioni tra loro, a coppie o come gruppi.
   \item[-] L’utente può condividere l’evento ad altri profili tramite link o condividendo a un gruppo o ad altri profili singoli.
   \item[-] L’utente può caricare le foto relative ad un evento, con visibilità condivisa.
-  \item[-] La conferma/disdetta, il caricamento delle foto e la modifica di un evento deve avvenire in tempo reale se i profili condivisi sono online, altrimenti ricevono gli aggiornamenti all’avvio dell’applicazione.
   \item[-] Alla scadenza dell’evento, se su dispositivo mobile, l’applicazione controlla le foto scattate durante l’evento. Se ce ne sono, l’utente verrà notificato e potrà eliminare o confermare le foto, che verranno quindi caricate.
+  \item[-] L’utente può cercare altri profili e creare un’associazione tra il profilo cercato e quello che sta usando.
+  \item[-] I profili possono avere associazioni tra loro, a coppie o come gruppi.
+  \item[-] L’utente può avere più profili, vedere in contemporanea gli eventi di tutti i profili associati ma effettuare le azioni a nome di uno solo.
+  \item[-] La conferma/disdetta, il caricamento delle foto e la modifica di un evento deve avvenire in tempo reale se i profili condivisi sono online, altrimenti ricevono gli aggiornamenti all’avvio dell’applicazione.
+  \item[-] L'applicazione deve essere intuitiva e con brevi tempi di risposta.
+  \item[-] L'applicazione deve poter funzionare con un elevato numero di richieste concorrenti.
 \end{itemize}
-
-TODO Scalabilità e Affidabilità
 
 
 \subsection{Tabella dei Requisiti}
 
-\begin{tabular} {|P{1.5cm}|P{12.5cm}|P{3cm}|}
+\begin{tabular} {|P{1.3cm}|P{11.2cm}|P{3cm}|}
   \hline
   \textbf{ID} & \textbf{Requisiti}                                                          & \textbf{Tipo}  \\
   \hline
@@ -47,27 +47,27 @@ TODO Scalabilità e Affidabilità
   \hline
   R9F         & La disdetta di un evento lo sposta negli eventi proposti                    & Funzionale     \\
   \hline
-  R10F        & Visualizzazione dei profili collegati                                       & Funzionale     \\
+  R10F        & Caricamento delle foto di un evento                                         & Funzionale     \\
   \hline
-  R11F        & Creazione di un nuovo profilo                                               & Funzionale     \\
+  R11F        & Condivisione tramite link                                                   & Funzionale     \\
   \hline
-  R12F        & Cambio del profilo attualmente in uso                                       & Funzionale     \\
+  R12F        & Condivisione tramite gruppo o ad altri profili                              & Funzionale     \\
   \hline
-  R13F        & Ricerca di altri profili                                                    & Funzionale     \\
+  R13F        & Ricerca automatica delle foto sul dispositivo mobile                        & Funzionale     \\
   \hline
-  R14F        & Creazione di un gruppo da due o più profili                                 & Funzionale     \\
+  R14F        & Conferma delle foto                                                         & Funzionale     \\
   \hline
-  R15F        & Condivisione tramite link                                                   & Funzionale     \\
+  R15F        & Ricerca di altri profili                                                    & Funzionale     \\
   \hline
-  R16F        & Condivisione tramite gruppo o ad altri profili                              & Funzionale     \\
+  R16F        & Creazione di un gruppo da due o più profili                                 & Funzionale     \\
   \hline
-  R17F        & Aggiornamento in tempo reale delle modifiche agli eventi                    & Funzionale     \\
+  R17F        & Visualizzazione dei profili collegati                                       & Funzionale     \\
   \hline
-  R18F        & Caricamento delle foto di un evento                                         & Funzionale     \\
+  R18F        & Creazione di un nuovo profilo                                               & Funzionale     \\
   \hline
-  R19F        & Ricerca automatica delle foto sul dispositivo mobile                        & Funzionale     \\
+  R19F        & Cambio del profilo attualmente in uso                                       & Funzionale     \\
   \hline
-  R20F        & Conferma delle foto                                                         & Funzionale     \\
+  R20F        & Aggiornamento in tempo reale delle modifiche agli eventi                    & Funzionale     \\
   \hline
   R1NF        & Per interagire l’utente deve essere autenticato                             & Non Funzionale \\
   \hline
@@ -79,12 +79,15 @@ TODO Scalabilità e Affidabilità
   \hline
   R5NF        & Velocità nella ricerca dei profili                                          & Non Funzionale \\
   \hline
+  R6NF        & Scalabilità delle richieste                                                 & Non Funzionale \\
+  \hline
 \end{tabular}
+\clearpage
 
 \subsection{Analisi dei Requisiti}
 \subsubsection{Vocabolario}
 
-\begin{tabular} {|P{3.5cm}|P{10.5cm}|P{3cm}|}
+\begin{tabular} {|P{3.5cm}|P{9cm}|P{3cm}|}
   \hline
   \textbf{Voce}     & \textbf{Definizione}                                                             & \textbf{Sinonimi}                 \\
   \hline
@@ -106,15 +109,15 @@ TODO Scalabilità e Affidabilità
   \hline
   Evento proposto   & Evento a cui il profilo non ha dato conferma di partecipazione                   & Evento disdetto, evento condiviso \\
   \hline
-  Credenziali       & Insieme composto da email e password necessari per accedere al sistema           &                                   \\
-  \hline
   Email             & Indirizzo di posta elettronica del cliente utilizzata anche per l'autenticazione &                                   \\
   \hline
   Password          & Codice alfanumerico di almeno 8 caratteri                                        &                                   \\
   \hline
+  Credenziali       & Insieme composto da email e password necessari per accedere al sistema           &                                   \\
+  \hline
 \end{tabular}
 
-TODO riordinare i requisiti
+
 
 \subsubsection{Sistemi esterni}
 \label{sec:esterno}
@@ -123,11 +126,11 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 
 
 \newpage %optional
-\subsubsection{Casi d'uso della farmacia}
+\subsubsection{Casi d'uso}
 
 \begin{figure}[h!]
   \begin{center}
-    \includegraphics[width=\textwidth]{Casiduso.jpg}
+    \rotatebox{90}{\includegraphics[width=\textwidth]{Casiduso.jpg}}
   \end{center}
 \end{figure}
 
@@ -136,7 +139,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \hfill \break
 
 %Registrazione
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & Registrazione                                                                            \\
   \hline
@@ -158,7 +161,9 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   \textbf{Scenari Alternativi}      &
   3. Il sistema verifica che è già presente un account con la mail inserita, quindi procede con la procedura di login normale. \\
   \hline
-  \textbf{Requisiti non funzionali} & TODO                                                              \\
+  \textbf{Requisiti non funzionali} &
+  Per interagire l’utente deve essere autenticato \linebreak
+  Velocità in lettura e scrittura dei dati                                                                                     \\
   \hline
   \textbf{Punti aperti}             &                                                                                          \\
   \hline
@@ -167,7 +172,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %Login
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & Login                                                              \\
   \hline
@@ -190,7 +195,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   \linebreak 3. Il sistema non riconosce le credenziali e rispedisce l'utente
   alla schermata di login con un messaggio di errore                                                     \\
   \hline
-  \textbf{Requisiti non funzionali} & Velocità di verifica delle credenziali                             \\
+  \textbf{Requisiti non funzionali} & Velocità in lettura e scrittura dei dati\linebreak                 \\
   \hline
   \textbf{Punti aperti}             &                                                                    \\
   \hline
@@ -199,7 +204,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %EventiConfermati
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & EventiConfermati                                            \\
   \hline
@@ -219,8 +224,8 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   \hline
   \textbf{Scenari Alternativi}      &                                                             \\
   \hline
-  \textbf{Requisiti non funzionali} & Velocità di ricerca dei dati e
-  semplicità di navigazione tra le diverse maschere                                               \\
+  \textbf{Requisiti non funzionali} & Velocità di richiesta iniziale dei dati\linebreak
+  Semplicità e fluidità dell'interfaccia grafica                                                  \\
   \hline
   \textbf{Punti aperti}             &                                                             \\
   \hline
@@ -229,7 +234,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %EventiProposti
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & EventiProposti                                                           \\
   \hline
@@ -249,8 +254,8 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   \hline
   \textbf{Scenari Alternativi}      &                                                                          \\
   \hline
-  \textbf{Requisiti non funzionali} & Velocità di ricerca dei dati e
-  semplicità di navigazione tra le diverse maschere                                                            \\
+  \textbf{Requisiti non funzionali} & Velocità di richiesta iniziale dei dati\linebreak
+  Semplicità e fluidità dell'interfaccia grafica                                                               \\
   \hline
   \textbf{Punti aperti}             &                                                                          \\
   \hline
@@ -259,7 +264,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %VisualizzaEvento
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & VisualizzaEvento                                                                                                                                                                                   \\
   \hline
@@ -273,7 +278,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   \hline
   \textbf{Postcondizioni}           & Viene mostrato l'evento e i suoi dettagli, le modifiche vengono temporaneamente salvate                                                                                                            \\
   \hline
-  \textbf{Scenario Principale}      & 1. L'utente seleziona un evento \linebreak 2. Il sistema recupera i dati dell'evento \linebreak 3. Il sistema mostra a video i dati dell'evento da la possibilità di modificare i dati dell'evento \\                                                                                                                                                                                            \\
+  \textbf{Scenario Principale}      & 1. L'utente seleziona un evento \linebreak 2. Il sistema recupera i dati dell'evento \linebreak 3. Il sistema mostra a video i dati dell'evento da la possibilità di modificare i dati dell'evento \\
   \hline
   \textbf{Scenari Alternativi}      & Scenario alternativo A: \linebreak
   1. L'utente seleziona l'opzione di creare un nuovo evento \linebreak 2. Il sistema mostra a video i dati dell'evento da la possibilità di modificare i dati dell'evento         \linebreak
@@ -282,8 +287,8 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   2. Il sistema recupera i dati dell'evento\linebreak
   3. Il sistema mostra a video i dati dell'evento da la possibilità di modificare i dati dell'evento                                                                                                                                     \\
   \hline
-  \textbf{Requisiti non funzionali} & Velocità di ricerca dei dati e
-  semplicità di navigazione tra le diverse maschere                                                                                                                                                                                      \\
+  \textbf{Requisiti non funzionali} & Velocità in lettura e scrittura dei dati\linebreak
+  Semplicità e fluidità dell'interfaccia grafica                                                                                                                                                                                         \\
   \hline
   \textbf{Punti aperti}             &                                                                                                                                                                                                    \\
   \hline
@@ -292,7 +297,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %CreaEvento
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & CreaEvento                                                                        \\
   \hline
@@ -311,9 +316,10 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   3. Se i dati sono corretti, l'evento viene salvato\linebreak
   4. L'evento è visualizzato nella schermata degli eventi\linebreak
   5. Tutti i dispositivi collegati al profilo visualizzano l'evento                                                     \\
+  \hline
   \textbf{Scenari Alternativi}      & 3. Se i dati risultano sbagliati, il sistema notifica l'utente indicando l'errore \\
   \hline
-  \textbf{Requisiti non funzionali} & Velocità di ricerca dei dati e semplicità di navigazione tra le diverse maschere  \\
+  \textbf{Requisiti non funzionali} & Velocità in lettura e scrittura dei dati                                          \\
   \hline
   \textbf{Punti aperti}             &                                                                                   \\
   \hline
@@ -322,7 +328,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %ModificaEvento
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & ModificaEvento                                                                    \\
   \hline
@@ -340,9 +346,10 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   2. Il sistema controlla che i dati modificati siano corretti\linebreak
   3. Le immagini vengono salvate\linebreak
   4. Tutti i dispositivi collegati ai profili collegati all'evento visualizzano le immagini                             \\
+  \hline
   \textbf{Scenari Alternativi}      & 3. Se i dati risultano sbagliati, il sistema notifica l'utente indicando l'errore \\
   \hline
-  \textbf{Requisiti non funzionali} & Velocità di ricerca dei dati e semplicità di navigazione tra le diverse maschere  \\
+  \textbf{Requisiti non funzionali} & Velocità in lettura e scrittura dei dati                                          \\
   \hline
   \textbf{Punti aperti}             &                                                                                   \\
   \hline
@@ -351,7 +358,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %ConfermaEvento
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & ConfermaEvento                                                                                                                       \\
   \hline
@@ -369,9 +376,10 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   2. L'utente conferma la sua presenza\linebreak
   3. L'evento è visualizzato tra gli eventi confermati\linebreak
   4. Tutti i dispositivi collegati ai profili collegati all'evento visualizzano l'aggiornamento                                                                            \\
+  \hline
   \textbf{Scenari Alternativi}      &                                                                                                                                      \\
   \hline
-  \textbf{Requisiti non funzionali} & Semplicità di navigazione tra le diverse maschere                                                                                    \\
+  \textbf{Requisiti non funzionali} & Velocità in lettura e scrittura dei dati                                                                                             \\
   \hline
   \textbf{Punti aperti}             &                                                                                                                                      \\
   \hline
@@ -380,7 +388,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %DisdiciEvento
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & DisdiciEvento                                                                                                                     \\
   \hline
@@ -398,9 +406,10 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   2. L'utente disdice la sua presenza\linebreak
   3. L'evento è visualizzato tra gli eventi proposti\linebreak
   4. Tutti i dispositivi collegati ai profili collegati all'evento visualizzano l'aggiornamento                                                                         \\
+  \hline
   \textbf{Scenari Alternativi}      &                                                                                                                                   \\
   \hline
-  \textbf{Requisiti non funzionali} & Semplicità di navigazione tra le diverse maschere                                                                                 \\
+  \textbf{Requisiti non funzionali} & Velocità in lettura e scrittura dei dati                                                                                          \\
   \hline
   \textbf{Punti aperti}             &                                                                                                                                   \\
   \hline
@@ -409,36 +418,38 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %CaricaImmagini
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
-  \textbf{Titolo}                   & CaricaImmagini                                                                       \\
+  \textbf{Titolo}                   & CaricaImmagini                                                                  \\
   \hline
-  \textbf{Descrizione}              & Permette all'utente di selezionare immagini da collegare all'evento, salvandole      \\
+  \textbf{Descrizione}              & Permette all'utente di selezionare immagini da collegare all'evento, salvandole \\
   \hline
-  \textbf{Attori}                   & Utente                                                                               \\
+  \textbf{Attori}                   & Utente                                                                          \\
   \hline
-  \textbf{Relazioni}                & VisualizzaEvento                                                                     \\
+  \textbf{Relazioni}                & VisualizzaEvento                                                                \\
   \hline
-  \textbf{Precondizioni}            & L'evento esiste                                                                      \\
+  \textbf{Precondizioni}            & L'evento esiste                                                                 \\
   \hline
-  \textbf{Postcondizioni}           & Le immagini vengono salvate e propagate a tutti i profili collegati                  \\
+  \textbf{Postcondizioni}           & Le immagini vengono salvate e propagate a tutti i profili collegati             \\
   \hline
   \textbf{Scenario Principale}      & 1. VisualizzaEvento \linebreak
   2. L'utente seleziona le immagini che vuole caricare\linebreak
   3. Le immagini vengono salvate\linebreak
-  4. Tutti i dispositivi collegati ai profili collegati all'evento visualizzano le immagini                                \\
-  \textbf{Scenari Alternativi}      &                                                                                      \\
+  4. Tutti i dispositivi collegati ai profili collegati all'evento visualizzano le immagini                           \\
   \hline
-  \textbf{Requisiti non funzionali} & Velocità di caricamento dei dati e semplicità di navigazione tra le diverse maschere \\
+  \textbf{Scenari Alternativi}      &                                                                                 \\
   \hline
-  \textbf{Punti aperti}             &                                                                                      \\
+  \textbf{Requisiti non funzionali} & Velocità in lettura e scrittura dei dati\linebreak
+  Semplicità e fluidità dell'interfaccia grafica                                                                      \\
+  \hline
+  \textbf{Punti aperti}             &                                                                                 \\
   \hline
 \end{tabular}
 \hfill
 \break
 
 %RecuperaImmagini
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & RecuperaImmagini                                                          \\
   \hline
@@ -455,9 +466,10 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   \textbf{Scenario Principale}      & 1. Il sistema controlla che l'evento sia finito \linebreak
   2. Il sistema controlla la galleria per trovare le immagini scattate nell'arco temporale dell'evento\linebreak
   3. Se ci sono immagini, vengono salvate in locale e l'utente viene notificato                                 \\
+  \hline
   \textbf{Scenari Alternativi}      &                                                                           \\
   \hline
-  \textbf{Requisiti non funzionali} & Velocità di caricamento dei dati                                          \\
+  \textbf{Requisiti non funzionali} & Velocità in lettura e scrittura dei dati                                  \\
   \hline
   \textbf{Punti aperti}             &                                                                           \\
   \hline
@@ -466,7 +478,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %EliminaImmagini
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & EliminaImmagini                                       \\
   \hline
@@ -483,11 +495,12 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   \textbf{Scenario Principale}      & 1.VisualizzaEvento
   1. L'utente seleziona le immagini caricate automaticamente da eliminare\linebreak
   1. Le immagini vengono rimosse dall'evento                                                \\
+  \hline
   \textbf{Scenari Alternativi}      & 1. VisualizzaEvento \linebreak
   2. L'utente seleziona le immagini da eliminare\linebreak
-  3. Le immagini vengono rimosse dall'evento, e le modifiche propagate ai profili collegati \\                                                                                                                                                                                       \\
+  3. Le immagini vengono rimosse dall'evento, e le modifiche propagate ai profili collegati \\
   \hline
-  \textbf{Requisiti non funzionali} & Velocità di caricamento dei dati                      \\
+  \textbf{Requisiti non funzionali} &                                                       \\
   \hline
   \textbf{Punti aperti}             &                                                       \\
   \hline
@@ -496,7 +509,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %ConfermaImmagini
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & ConfermaImmagini                                              \\
   \hline
@@ -513,9 +526,10 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   \textbf{Scenario Principale}      & 1. VisualizzaEvento \linebreak
   2. L'utente seleziona conferma le immagini caricate automaticamente\linebreak
   3. Le immagini vengono aggiunte all'evento e tutti i profili collegati visualizzano le modifiche  \\
-  \textbf{Scenari Alternativi}      &                                                               \\                                                                                                                                                                                \\
   \hline
-  \textbf{Requisiti non funzionali} & Velocità di caricamento dei dati                              \\
+  \textbf{Scenari Alternativi}      &                                                               \\
+  \hline
+  \textbf{Requisiti non funzionali} & Velocità in lettura e scrittura dei dati                      \\
   \hline
   \textbf{Punti aperti}             &                                                               \\
   \hline
@@ -524,36 +538,36 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %CondividiAiGruppi
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
-  \textbf{Titolo}                   & CondividiAiGruppi                                                                \\
+  \textbf{Titolo}                   & CondividiAiGruppi                                                           \\
   \hline
-  \textbf{Descrizione}              & Permette di condividere l'evento ai gruppi                                       \\
+  \textbf{Descrizione}              & Permette di condividere l'evento ai gruppi                                  \\
   \hline
-  \textbf{Attori}                   & Utente                                                                           \\
+  \textbf{Attori}                   & Utente                                                                      \\
   \hline
-  \textbf{Relazioni}                & VisualizzaEvento                                                                 \\
+  \textbf{Relazioni}                & VisualizzaEvento                                                            \\
   \hline
-  \textbf{Precondizioni}            & L'evento esiste                                                                  \\
+  \textbf{Precondizioni}            & L'evento esiste                                                             \\
   \hline
-  \textbf{Postcondizioni}           & L'evento è condiviso con tutti i profili appartenenti ai gruppi selezionati      \\
+  \textbf{Postcondizioni}           & L'evento è condiviso con tutti i profili appartenenti ai gruppi selezionati \\
   \hline
   \textbf{Scenario Principale}      & 1. VisualizzaEvento\linebreak
   2. Il sistema visualizza l'elenco dei gruppi di cui l'utente fa parte, permettendone la selezione\linebreak
-  3. L'evento è condiviso con tutti i profili dei gruppi selezionati, che visualizzeranno l'evento tra i proposti      \\
+  3. L'evento è condiviso con tutti i profili dei gruppi selezionati, che visualizzeranno l'evento tra i proposti \\
   \hline
-  \textbf{Scenari Alternativi}      &                                                                                  \\
+  \textbf{Scenari Alternativi}      &                                                                             \\
   \hline
-  \textbf{Requisiti non funzionali} & Velocità di ricerca dei dati e semplicità di navigazione tra le diverse maschere \\
+  \textbf{Requisiti non funzionali} & Velocità in lettura e scrittura dei dati                                    \\
   \hline
-  \textbf{Punti aperti}             &                                                                                  \\
+  \textbf{Punti aperti}             &                                                                             \\
   \hline
 \end{tabular}
 \hfill
 \break
 
 %CondividiConLink
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & CondividiConLink                                  \\
   \hline
@@ -572,7 +586,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   \hline
   \textbf{Scenari Alternativi}      & 2. Il sistema salva il link in memoria temporanea \\
   \hline
-  \textbf{Requisiti non funzionali} & Semplicità di navigazione tra le diverse maschere \\
+  \textbf{Requisiti non funzionali} & Velocità in lettura e scrittura dei dati          \\
   \hline
   \textbf{Punti aperti}             &                                                   \\
   \hline
@@ -581,35 +595,35 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %AggiornaEvento
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
-  \textbf{Titolo}                   & AggiornaEvento                                                                   \\
+  \textbf{Titolo}                   & AggiornaEvento                                                                  \\
   \hline
-  \textbf{Descrizione}              & Aggiorna l’evento in locale in base alle modifiche apportate da profili esterni  \\
+  \textbf{Descrizione}              & Aggiorna l’evento in locale in base alle modifiche apportate da profili esterni \\
   \hline
-  \textbf{Attori}                   & ModificaEvento                                                                   \\
+  \textbf{Attori}                   & ModificaEvento                                                                  \\
   \hline
-  \textbf{Relazioni}                &                                                                                  \\
+  \textbf{Relazioni}                &                                                                                 \\
   \hline
-  \textbf{Precondizioni}            & L'evento esiste ed è cdondiviso con uno dei profili collegati all'utente         \\
+  \textbf{Precondizioni}            & L'evento esiste ed è cdondiviso con uno dei profili collegati all'utente        \\
   \hline
-  \textbf{Postcondizioni}           & L'evento viene aggiornato con le modifiche                                       \\
+  \textbf{Postcondizioni}           & L'evento viene aggiornato con le modifiche                                      \\
   \hline
   \textbf{Scenario Principale}      & 1. Il sistema riceve la notifica che un evento è stato modificato \linebreak
-  2. Il sistema recupera le modifiche e aggiorna l'evento di conseguenza                                               \\
+  2. Il sistema recupera le modifiche e aggiorna l'evento di conseguenza                                              \\
   \hline
-  \textbf{Scenari Alternativi}      &                                                                                  \\
+  \textbf{Scenari Alternativi}      &                                                                                 \\
   \hline
-  \textbf{Requisiti non funzionali} & Velocità di ricerca dei dati e semplicità di navigazione tra le diverse maschere \\
+  \textbf{Requisiti non funzionali} & Velocità in lettura e scrittura dei dati\                                       \\
   \hline
-  \textbf{Punti aperti}             &                                                                                  \\
+  \textbf{Punti aperti}             &                                                                                 \\
   \hline
 \end{tabular}
 \hfill
 \break
 
 %GestioneGruppi
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & GestioneGruppi                                                        \\
   \hline
@@ -629,8 +643,8 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   \hline
   \textbf{Scenari Alternativi}      &                                                                       \\
   \hline
-  \textbf{Requisiti non funzionali} & Velocità di ricerca dei dati e
-  semplicità di navigazione tra le diverse maschere                                                         \\
+  \textbf{Requisiti non funzionali} & Velocità di richiesta iniziale dei dati\linebreak
+  Semplicità e fluidità dell'interfaccia grafica                                                            \\
   \hline
   \textbf{Punti aperti}             &                                                                       \\
   \hline
@@ -639,37 +653,38 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %CercaProfili
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
-  \textbf{Titolo}                   & CercaProfili                                                                     \\
+  \textbf{Titolo}                   & CercaProfili                                              \\
   \hline
-  \textbf{Descrizione}              & L'utente cerca i profili tramite tag                                             \\
+  \textbf{Descrizione}              & L'utente cerca i profili tramite tag                      \\
   \hline
-  \textbf{Attori}                   & Utente                                                                           \\
+  \textbf{Attori}                   & Utente                                                    \\
   \hline
-  \textbf{Relazioni}                & GestioneGruppi, AggiungiProfilo                                                  \\
+  \textbf{Relazioni}                & GestioneGruppi, AggiungiProfilo                           \\
   \hline
-  \textbf{Precondizioni}            &                                                                                  \\
+  \textbf{Precondizioni}            &                                                           \\
   \hline
-  \textbf{Postcondizioni}           & Si visualizza la lista dei profili con tag corrispondente                        \\
+  \textbf{Postcondizioni}           & Si visualizza la lista dei profili con tag corrispondente \\
   \hline
   \textbf{Scenario principale}      & 1. GestioneGruppi \linebreak
   2. L'utente inserisce il tag parziale o completo del profilo per cui eseguire la ricerca \linebreak
   3. Il sistema ottiene la lista dei profili che corrispondono alla ricerca\linebreak
-  4. La lista viene mostrata all'utente                                                                                \\
+  4. La lista viene mostrata all'utente                                                         \\
   \hline
-  \textbf{Scenari Alternativi}      &                                                                                  \\
+  \textbf{Scenari Alternativi}      &                                                           \\
   \hline
-  \textbf{Requisiti non funzionali} & Velocità di ricerca dei dati e semplicità di navigazione tra le diverse maschere \\
+  \textbf{Requisiti non funzionali} & Velocità in lettura e scrittura dei dati\linebreak
+  Semplicità e fluidità dell'interfaccia grafica                                                \\
   \hline
-  \textbf{Punti aperti}             &                                                                                  \\
+  \textbf{Punti aperti}             &                                                           \\
   \hline
 \end{tabular}
 \hfill
 \break
 
 %AggiungiProfilo
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & AggiungiProfilo                                                  \\
   \hline
@@ -689,7 +704,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   \hline
   \textbf{Scenari Alternativi}      &                                                                  \\
   \hline
-  \textbf{Requisiti non funzionali} & Semplicità di navigazione tra le diverse maschere                \\
+  \textbf{Requisiti non funzionali} & Velocità in lettura e scrittura dei dati                         \\
   \hline
   \textbf{Punti aperti}             &                                                                  \\
   \hline
@@ -698,7 +713,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %CreaGruppo
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & CreaGruppo                                                                          \\
   \hline
@@ -718,7 +733,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   \hline
   \textbf{Scenari Alternativi}      &                                                                                     \\
   \hline
-  \textbf{Requisiti non funzionali} & Velocità di ricerca dei dati e semplicità di navigazione tra le diverse maschere    \\
+  \textbf{Requisiti non funzionali} & Velocità in lettura e scrittura dei dati                                            \\
   \hline
   \textbf{Punti aperti}             &                                                                                     \\
   \hline
@@ -727,7 +742,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %AggiungiProfiloAlGruppo
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & AggiungiProfiloAlGruppo                                          \\
   \hline
@@ -748,7 +763,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   \hline
   \textbf{Scenari Alternativi}      &                                                                  \\
   \hline
-  \textbf{Requisiti non funzionali} & Semplicità di navigazione tra le diverse maschere                \\
+  \textbf{Requisiti non funzionali} & Velocità in lettura e scrittura dei dati                         \\
   \hline
   \textbf{Punti aperti}             &                                                                  \\
   \hline
@@ -757,7 +772,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %GestioneProfili
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & GestioneProfili                                               \\
   \hline
@@ -777,8 +792,8 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   \hline
   \textbf{Scenari Alternativi}      &                                                               \\
   \hline
-  \textbf{Requisiti non funzionali} & Velocità di ricerca dei dati e
-  semplicità di navigazione tra le diverse maschere                                                 \\
+  \textbf{Requisiti non funzionali} & Velocità di richiesta iniziale dei dati\linebreak
+  Semplicità e fluidità dell'interfaccia grafica                                                    \\
   \hline
   \textbf{Punti aperti}             &                                                               \\
   \hline
@@ -787,7 +802,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %CambiaProfilo
-\begin{tabular} {|P{4.5cm}|P{12.5cm}|}
+\begin{tabular} {|P{4.5cm}|P{11cm}|}
   \hline
   \textbf{Titolo}                   & CambiaProfilo                                            \\
   \hline
@@ -807,8 +822,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
   \hline
   \textbf{Scenari Alternativi}      &                                                          \\
   \hline
-  \textbf{Requisiti non funzionali} & Velocità di ricerca dei dati e
-  semplicità di navigazione tra le diverse maschere                                            \\
+  \textbf{Requisiti non funzionali} &                                                          \\
   \hline
   \textbf{Punti aperti}             &                                                          \\
   \hline
@@ -820,7 +834,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 
 \subsubsection{Tabella Valutazione dei Beni}
 
-\begin{tabular} {|P{4cm}|P{6cm}|P{7cm}|}
+\begin{tabular} {|P{3.5cm}|P{5.5cm}|P{6.7cm}|}
   \hline
   \textbf{Bene}                     & \textbf{Valore}                                                                                              & \textbf{Esposizione}      \\
   \hline
@@ -841,38 +855,41 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 
 \subsubsection{Tabella Minacce/Controlli}
 
-\begin{tabular} {|P{3.5cm}|P{2.5cm}|P{6cm}|P{5cm}|}
+\begin{tabular} {|P{3cm}|P{2cm}|P{6.1cm}|P{4cm}|}
   \hline
-  \textbf{Minaccia}                                 & \textbf{Probabilità} & \textbf{Controllo}                                                                                                                                                                                                                      & \textbf{Fattibilità}                                              \\
+  \textbf{Minaccia}                                 & \textbf{Probab.} & \textbf{Controllo}                                                                                                                                                                                                                      & \textbf{Fattibilità}                                              \\
   \hline
-  Furto credenziali utente                          & Alta                 & Controllo sulla sicurezza della password - Log delle operazioni, autenticazione a due fattori                                                                                                                                           & Costo implementativo medio                                        \\
+  Furto credenziali utente                          & Alta             & Controllo sulla sicurezza della password - Log delle operazioni, autenticazione a due fattori                                                                                                                                           & Costo implementativo medio                                        \\
   \hline
-  Alterazione o intercettazione delle comunicazioni & Alta                 & Utilizzo di un canale sicuro - Log delle operazioni, autenticazione integrata nel messaggio                                                                                                                                             & Basso costo di realizzazione con determinati protocolli           \\
+  Alterazione o intercettazione delle comunicazioni & Alta             & Utilizzo di un canale sicuro - Log delle operazioni, autenticazione integrata nel messaggio                                                                                                                                             & Basso costo di realizzazione con determinati protocolli           \\
   \hline
-  Accesso non autorizzato al database               & Bassa                & Accesso da macchine sicure - Log di tutte le operazioni                                                                                                                                                                                 & Basso costo di realizzazione, il server deve essere ben custodito \\
+  Accesso non autorizzato al database               & Bassa            & Accesso da macchine sicure - Log di tutte le operazioni                                                                                                                                                                                 & Basso costo di realizzazione, il server deve essere ben custodito \\
   \hline
-  DoS                                               & Bassa                & Controllo e limitazione delle richieste                                                                                                                                                                                                 & Media complessità di implementazione                              \\
+  DoS                                               & Bassa            & Controllo e limitazione delle richieste                                                                                                                                                                                                 & Media complessità di implementazione                              \\
   \hline
-  Saturazione del database                          & Bassa                & 1. Limitazione delle richieste in un dato intervallo di tempo. \linebreak 2. Limitazione della grandezza delle richieste singole \linebreak 3. Limitazione della grandezza richiesta dallo stesso utente in un dato intervallo di tempo & Media complessità di implementazione                              \\
+  Saturazione del database                          & Bassa            & 1. Limitazione delle richieste in un dato intervallo di tempo. \linebreak 2. Limitazione della grandezza delle richieste singole \linebreak 3. Limitazione della grandezza richiesta dallo stesso utente in un dato intervallo di tempo & Media complessità di implementazione                              \\
   \hline
 \end{tabular}
 
 \subsubsection{Analisi Tecnologica della Sicurezza}
 
-\begin{tabular} {|P{4cm}|P{13cm}|}
+\begin{tabular} {|P{4cm}|P{12cm}|}
   \hline
-  Tecnologia                    & Vulnerabilità                                          \\
+  Tecnologia                     & Vulnerabilità                                            \\
   \hline
-  Autenticazione email/password & • Utente rivela volontariamente la password \linebreak
+  Autenticazione email/password  & • Utente rivela volontariamente la password \linebreak
   • Utente rivela la password con un attacco di ingegneria sociale \linebreak
-  • Password banali                                                                      \\
+  • Password banali                                                                         \\
   \hline
-  Cifratura comunicazioni       & • In caso di cifratura simmetrica particolare
-  attenzione va alla lunghezza delle chiavi ed alla loro memorizzazione                  \\
+  Cifratura comunicazioni        & • In caso di cifratura simmetrica particolare
+  attenzione va alla lunghezza delle chiavi ed alla loro memorizzazione                     \\
   \hline
-  Architettura Client/Server    & • DoS \linebreak
+  Architettura Client/Server     & • DoS \linebreak
   • Man in the Middle \linebreak
-  • Sniffing delle comunicazioni                                                         \\
+  • Sniffing delle comunicazioni                                                            \\
+  \hline
+  Connessione Server/Persistenza & • Limite massimo di connessioni contemporanee \linebreak
+  • Saturazione del Database                                                                \\
   \hline
 \end{tabular}
 
@@ -892,7 +909,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \hfill
 
 %ControlloDimensioni
-\begin{tabular} {|P{4cm}|P{13cm}|}
+\begin{tabular} {|P{4cm}|P{11.5cm}|}
   \hline
   \textbf{Titolo}                                      & ControlloDimensioni                                                                          \\
   \hline
@@ -922,7 +939,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \break
 
 %ControlloCredenziali
-\begin{tabular} {|P{4cm}|P{13cm}|}
+\begin{tabular} {|P{4cm}|P{11.5cm}|}
   \hline
   \textbf{Titolo}                                      & ControlloCredenziali                                            \\
   \hline
@@ -955,7 +972,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \hfill
 \break
 
-\begin{tabular} {|P{4cm}|P{13cm}|}
+\begin{tabular} {|P{4cm}|P{11.5cm}|}
   \hline
   \textbf{Titolo}                                      & Riservatezza                                                    \\
   \hline
@@ -984,7 +1001,7 @@ Il sistema non dovrà interfacciarsi con sistemi esterni.
 \hfill
 \break
 
-\begin{tabular} {|P{4cm}|P{13cm}|}
+\begin{tabular} {|P{4cm}|P{11.5cm}|}
   \hline
   \textbf{Titolo}                                      & Integrità                                     \\
   \hline
@@ -1031,20 +1048,20 @@ Sussistono inoltre i seguenti requisiti inerenti alla protezione dei dati:
   autorizzato.}
 \hfill \break
 
-\begin{tabular} {|P{3cm}|P{10cm}|P{3cm}|}
+\begin{tabular} {|P{1.3cm}|P{11.2cm}|P{3cm}|}
   \hline
   \textbf{ID}                       & \textbf{Requisiti}                                                  & \textbf{Tipo} \\
   \hline
   R21F                              & Implementazione di un sistema di log per tracciare tutti i messaggi
   tra i client e i server           & Funzionale                                                                          \\
   \hline
-  R22NF                             & Le richieste non devono superare una certa dimensione               & Funzionale    \\
+  R22F                              & Le richieste non devono superare una certa dimensione               & Funzionale    \\
   \hline
-  R6NF                              & I dati salvati devono essere protetti da un attaccante che abbia
+  R7NF                              & I dati salvati devono essere protetti da un attaccante che abbia
   accesso al sistema, prendendo misure di sicurezza fisica, eventualmente
   cifrando i dati                   & Non Funzionale                                                                      \\
   \hline
-  R7NF                              & I dati inviati tra le parti remote devono essere protetti,
+  R8NF                              & I dati inviati tra le parti remote devono essere protetti,
   utilizzando la cifratura dei dati & Non Funzionale                                                                      \\
   \hline
 \end{tabular}
