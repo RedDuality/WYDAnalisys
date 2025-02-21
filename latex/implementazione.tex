@@ -18,6 +18,7 @@ la scelta del gestore cloud ricade su:
 \end{itemize}
 In particolare, Google Firebase Authentication fornisce un sistema di autenticazione personalizzabile, 
 oltre a dare la possibilità di gestire più identity providers.\\
+TODO persistenza interna a gFA.\\
 La logica di business dell'applicazione verrà sviluppata su Azure Functions, un servizio Faas che scala automaticamente le richieste al server.
 La persistenza logica sarà affidata a AzureSQL, un database relazionale gestito dalla piattaforma, mentre le foto e i file multimediali verranno salvati su Azure Storage Container.
 Per aggiornare i devices in tempo reale utilizzeremo Azure PubSub, che permette di creare un canale con ogni dispositivo.\\
@@ -66,37 +67,81 @@ per ridurre il più possibile l'integrazione di falle nel sicurezza.\\
 \newpage
 \subsection{Progettazione di dettaglio}
 
-Di seguito verranno riportate solo le modifiche principali rispetto al piano di progettazione
-\subsubsection{Struttura}
+Di seguito verranno schematizzati alcuni esempi generali per mostrare le modifiche da apportare in seguito alle scelte implementative, come linee guida per il resto del programma.\\
+I casi particolari di interazione verranno dettagliati nella relativa sezione.
 
 \paragraph{Struttura: Dominio}\mbox{}\\
 
 Sia per il client che per il server, ogni entità descritta nel dominio verrà mappata con una classe corrispondente.
+TODO classi dominio .dart .cs\\
 
 \paragraph{Struttura: Controller - Client}\mbox{}\\
-Ogni richiesta di dati verso l'esterno verrà implementata grazie a api services, che nasconderanno i dettagli necessari per la comunicazione.\\
+Ogni richiesta di dati verso l'esterno verrà implementata grazie a classi che nasconderanno i dettagli necessari per la comunicazione, chiamate API.\\
 Inoltre, funzionalità che vengono ripetute in parti diverse del programma verranno delegate a classi chiamati servizi, che raggrupperanno le richieste per affinità logica.\\
 A titolo esemplificativo, si riportano alcune classi:\\
-Flutter ha una gestione dello stato che si basa sulla vita dei componenti a cui è associato. La persistenza a livello locale ha quindi durata limitata e ricade nella normale programmazione del framework.\\
-La persistenza a livello applicazione verrà suddivisa in classi, logicamente in base al dominio. Le classi saranno singleton e verranno create all'avvio dell'applicazione.\\
-\paragraph{Struttura: Controller - Server}\mbox{}\\
-Per sfruttare le caratteristiche di scalabilità delle Functions, il codice dovà essere suddiviso in nuclei di codice indipendenti tra loro.
+TODO classi front API e Services
+notificationservice.
 
-divisione responsabilità tra componenti: controller, service e API, DTO\\
+Flutter ha una gestione dello stato che si basa sulla vita dei componenti a cui è associato. La persistenza a livello locale ha quindi durata limitata e ricade nella normale programmazione del framework.\\
+La persistenza di livello applicativo verrà suddivisa in base alle classi logiche del dominio. Le classi seguiranno un pattern singleton e verranno create all'avvio dell'applicazione.\\
+TODO front providers
+
+
+\paragraph{Struttura: Controller - Server}\mbox{}\\
+Per sfruttare le caratteristiche di scalabilità delle Functions, il codice dovà essere suddiviso in nuclei di codice indipendenti tra loro, senza la permanenza di uno stato tra una richiesta e l'altra.\\
+Anche in questo caso, alcune funzionalità potrebbero essere condivise da più function, per cui verranno raggruppate in classi chiamate service.\\
+Infine, per la conversione delle classi di dominio a quelle di risposta, si implementeranno dei data tranfert objects(DTO) che permetteranno una mappatura corretta con il dominio dei client.\\
+
+
+
+
+
+
+
 \subsubsection{Interazione}
-TODO controlla condivisione con gruppi e salvataggio immagini\\
-condivisione tramite link
-\newpage
+
+Registrazione\\
+
+Login\\
+
+Visualizza eventi confermati\\
+
+modifica evento\\
+
+conferma immagini\\
+
+condivisione con gruppi
+
+condivisione tramite link\\
+
+
+
+
+
+
+
+
 
 \subsection{Deployment e Aggiornamento del Codice}
 
-\subsubsection{Deployment Type-Level}
+\subsubsection{Deployment Type-Level: Client}
 
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{ImplementazioneDeployment.jpg}
     \end{center}
 \end{figure}
-Aggiornamento lato web gestito automaticamente, lato applicazione tramite notifica che chiederà all'utente di aggiornare la sua applicazione.
+Aggiornamento lato web gestito automaticamente, lato applicazione tramite notifica che chiederà all'utente di aggiornare la sua applicazione.\\
 \newpage
+\subsubsection{Deployment Type-Level: Server}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{ImplementazioneDeployment.jpg}
+    \end{center}
+\end{figure}
+L'aggiornamento del codice eseguito sulle Azure Functions avverrà tramite un comando dato tramite interfaccia grafica su Visual Studio Code grazie all'estensione Azure Tools.\\
+Le modifiche al dominio del database verranno applicate tramite migrations, 
+generate automaticamente dal framework C# grazie alla libreria EFCore che permette di mappare le classi in tabelle SQL.\\
+
 \subsection{Testing e Performances}
