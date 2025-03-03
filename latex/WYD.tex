@@ -31,6 +31,7 @@
   {./immagini/progetto/}
   {./immagini/progetto/viste/}
   {./immagini/progetto/interazione/}
+  {./immagini/impl/interazione/}
 }
 
 \definecolor{LightGray}{gray}{0.9}
@@ -56,24 +57,25 @@
 }
 \definecolor{Gray}{gray}{0.85}
 \definecolor{LightCyan}{rgb}{0.88,1,1}
-\title{WYD}
-\author{
-Giacomo Romanini 0001093086\\
-}
-\date{Marzo 2025}
 
-\begin{document}
-\maketitle
-\pagenumbering{gobble}
-\newpage
-\pagenumbering{gobble}
-\tableofcontents
+
+\newcommand{\mycomment}[1]{}
+
+\mycomment{}
+
 %%%%%%%%%%% Moduli per ogni sezione %%%%%%%%%%%%%%%
 
+\begin{document}
+
+\input{./titlepage.tex}
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+\input{./introduzione.tex}
 \input{./abstract.tex}
-%\input{./requisiti.tex}
+\input{./requisiti.tex}
 %\input{./analisi.tex}
 %\input{./test.tex}
-\input{./progetto.tex}
-\input{./implementazione.tex}
+%\input{./progetto.tex}
+%\input{./implementazione.tex}
 \end{document}

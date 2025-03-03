@@ -29,7 +29,7 @@ Inoltre, l'intuitività dell'interfaccia è fondamentale per l'usabilità e la d
 
 La scelta tecnologica principale ricade sul tipo di applicazione che si andrà a
 sviluppare.
-In questo caso la scelta è quella di sviluppare sia un'applicazione sia da browser web, che tramite dispositivo mobile, per i seguenti motivi:
+In questo caso la scelta è quella di sviluppare sia un'interfaccia per browser web, sia un'applicazione per dispositivo mobile, per i seguenti motivi:
 \begin{enumerate}
     \item un'interfaccia web consente di avere una
           piattaforma standard accessibile da quasi tutti i dispositivi, con il solo
@@ -75,22 +75,20 @@ Il pattern Event Driven sarà invece usato per notificare i Client degli aggiorn
 A livello di design distinguiamo tre componenti principali: Model, View e Controller.
 Mentre la View sarà delegata completamente ai Client, Model e Controller saranno invece suddivisi tra il Client e il Server,
 in base alle necessità di caching dei dati e della località delle operazioni di business.\\
-Si riportano di seguito i diagrammi di package e componenti che descrivono l'architettura del sistema.
+Si riportano di seguito i diagrammi di package e componenti che descrivono l'architettura del sistema.\\
+TODO accesso to DB
 
 \newpage
-TODO accesso to DB
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{ProgettoDiagrammaPackage.jpg}
+        \includegraphics[height=0.5\textheight]{ProgettoDiagrammaPackage.png}
         \caption{Diagramma dei package}
     \end{center}
 \end{figure}
 
-\newpage
-
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{ProgettoDiagrammaComponenti.jpg}
+        \includegraphics[height=0.3\textheight]{ProgettoDiagrammaComponenti.png}
         \caption{Diagramma dei componenti}
     \end{center}
 \end{figure}
@@ -99,9 +97,7 @@ TODO accesso to DB
 
 \subsection{Progettazione di dettaglio}
 
-\subsubsection{Struttura}
-
-\paragraph{Struttura: Dominio}\mbox{}\\
+\subsubsection{Struttura: Dominio}
 
 Per quanto riguarda il dominio, distinguiamo il dominio del server dal dominio del client.
 
@@ -113,7 +109,7 @@ e le date di creazione e di ultima modifica per gestire meglio i log e gli aggio
 Inoltre, aggiungiamo un componente per definire il ruolo dell'utente sul profilo.
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[scale=0.45]{ProgettoDominioServer.jpg}
+        \includegraphics[width=\textwidth]{ProgettoDominioServer.png}
     \end{center}
 \end{figure}
 
@@ -123,29 +119,31 @@ Inoltre, aggiungiamo un componente per definire il ruolo dell'utente sul profilo
 Dal punto di vista del client alcune relazioni non sono più rilevanti o vengono semplificate integrando alcuni valori all'interno di altri elementi del dominio.
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[scale=0.56]{ProgettoDominioClient.jpg}
+        \includegraphics[width=\textwidth]{ProgettoDominioClient.png}
     \end{center}
 \end{figure}
 \clearpage
-\paragraph{Struttura: Interfacce}\mbox{}\\
+
+\subsubsection{Struttura: Interfacce}
+
 \textbf{Diagramma di dettaglio: Interfacce Gestione Accesso e Gestione Aggiornamenti}
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{ProgettoInterfacceAccesso.jpg}
+        \includegraphics[height=0.09\textheight]{ProgettoInterfacceAccesso.png}
     \end{center}
 \end{figure}
-\\
+
 \textbf{Diagramma di dettaglio: Interfacce Client}
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{ProgettoInterfacceClient.jpg}
+        \includegraphics[height=0.24\textheight]{ProgettoInterfacceClient.png}
     \end{center}
 \end{figure}
-\newpage
+
 \textbf{Diagramma di dettaglio: Interfacce Server}
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{ProgettoInterfacceServer.jpg}
+        \includegraphics[height=0.31\textheight]{ProgettoInterfacceServer.png}
     \end{center}
 \end{figure}\\
 
@@ -153,38 +151,37 @@ Le interfacce client e server risultano molto simili in quanto il client, prima 
 L'aggiunta di tali interfacce consente di applicare il \textit{Dependency Inversion Principle}
 in modo da disaccoppiare gli utilizzatori dalle implementazioni, che potrebbero cambiare.
 
+\clearpage
 
-\newpage
-
-\paragraph{Struttura: Controller}\mbox{}\\
+\subsubsection{Struttura: Controller}
 
 Ogni interfaccia verrà implementata da un relativo controller.
-\vspace{2em}
+\vspace{1em}
 
 \textbf{Diagramma di dettaglio: Gestione Accesso e Gestione Aggiornamenti}
 \\Introduciamo un Controller per la connessione con la persistenza del log
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{ProgettoControllerAccesso.jpg}
+        \includegraphics[height=0.25\textheight]{ProgettoControllerAccesso.png}
     \end{center}
 \end{figure}
-
-\newpage
 
 \textbf{Diagramma di dettaglio: Client}
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{ProgettoControllerClient.jpg}
+        \includegraphics[height=0.45\textheight]{ProgettoControllerClient.png}
     \end{center}
 \end{figure}
 
 
-\newpage
+\clearpage
+
+\subsubsection{Struttura: Interfacce Grafiche}
 
 \textbf{Diagramma di dettaglio: Server}
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{ProgettoControllerServer.jpg}
+        \includegraphics[width=\textwidth]{ProgettoControllerServer.png}
     \end{center}
 \end{figure}
 
@@ -195,7 +192,7 @@ Ogni interfaccia verrà implementata da un relativo controller.
 \textbf{Diagramma di dettaglio: InterfacciaUtente - Eventi}
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=0.9\textwidth]{ProgettoViewEventi.jpg}
+        \includegraphics[width=0.9\textwidth]{ProgettoViewEventi.png}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
@@ -218,17 +215,17 @@ Ogni interfaccia verrà implementata da un relativo controller.
 \textbf{Diagramma di dettaglio: InterfacciaUtente - Gruppi}
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=0.9\textwidth]{ProgettoViewGruppi.jpg}
+        \includegraphics[width=0.9\textwidth]{ProgettoViewGruppi.png}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=\textwidth]{ProgettoVistaGruppi.png}
+    \includegraphics[height=0.28\textheight]{ProgettoVistaGruppi.png}
     \caption{Gruppi}
 \end{figure}
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=\textwidth]{ProgettoVistaCercaProfili.png}
+    \includegraphics[height=0.33\textheight]{ProgettoVistaCercaProfili.png}
     \caption{Cerca profili}
 \end{figure}
 \clearpage
@@ -236,7 +233,7 @@ Ogni interfaccia verrà implementata da un relativo controller.
 \textbf{Diagramma di dettaglio: InterfacciaUtente - Profili}
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=0.6\textwidth]{ProgettoViewProfili.jpg}
+        \includegraphics[width=0.6\textwidth]{ProgettoViewProfili.png}
     \end{center}
 \end{figure}
 
@@ -252,7 +249,7 @@ Ogni interfaccia verrà implementata da un relativo controller.
 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=0.9\textwidth]{ProgettoViewGestioneAccesso.jpg}
+        \includegraphics[width=0.9\textwidth]{ProgettoViewGestioneAccesso.png}
     \end{center}
 \end{figure}
 
@@ -269,75 +266,103 @@ Ogni interfaccia verrà implementata da un relativo controller.
 
 \clearpage
 
+
+
 \subsubsection{Interazione}
 
 
-
 Si riportano di seguito i vari diagrammi di sequenza, aggiornati rispetto a quelli visti in fase di analisi.\\
-TODO aggiungere local ai controller
 \vspace{3em}
 
-\textbf{Diagramma di Sequenza: Registrazione}
+\textbf{Diagramma di Sequenza: Registrazione - Client}
 \begin{figure}[h!]
     \centering
-    \rotatebox{90}{\includegraphics[width=\textwidth]{PIRegistrazione.jpg}}
+    \includegraphics[width=\textwidth]{PIRegistrazione1.png}
+\end{figure}
+
+\textbf{Diagramma di Sequenza: Registrazione - Server}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{PIRegistrazione2.png}
 \end{figure}
 \clearpage
 \textbf{Diagramma di Sequenza: Visualizza Eventi Confermati}
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=\textwidth]{PIVisualizzaEventiConfermati.jpg}
+    \includegraphics[width=\textwidth]{PIVisualizzaEventiConfermati.png}
 \end{figure}\\
 \textbf{Diagramma di Sequenza: Visualizza Evento}
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=\textwidth]{PIVisualizzaEvento.jpg}
+    \includegraphics[width=\textwidth]{PIVisualizzaEvento.png}
 \end{figure}
 \clearpage
 \textbf{Diagramma di Sequenza: Crea Evento}
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=\textwidth]{PICreaEvento.jpg}
+    \includegraphics[width=\textwidth]{PICreaEvento.png}
 \end{figure}\\
 \textbf{Diagramma di Sequenza: Modifica Evento}
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=\textwidth]{PIModificaEvento.jpg}
+    \includegraphics[width=\textwidth]{PIModificaEvento.png}
+\end{figure}\\
+\textbf{Diagramma di Sequenza: Aggiorna Evento}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{PIAggiornaEvento.png}
 \end{figure}
 \clearpage
 \textbf{Diagramma di Sequenza: Conferma Evento}
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=\textwidth]{PIConfermaEvento.jpg}
+    \includegraphics[width=\textwidth]{PIConfermaEvento.png}
 \end{figure}
 
-\textbf{Diagramma di Sequenza: Carica Immagini}\\
-TODO\\
-\clearpage
-\textbf{Diagramma di Sequenza: Conferma Immagini}
+\textbf{Diagramma di Sequenza: Recupera Immagini - Client}
 \begin{figure}[h!]
     \centering
-    \adjustbox{valign=c, width=0.95\textheight, angle=90}{\includegraphics{PIConfermaImmagini.jpg}}
+    \includegraphics[width=0.8\textwidth]{PIRecuperaImmagini.png}
+\end{figure}
+\clearpage
+
+\textbf{Diagramma di Sequenza: Conferma Immagini - Client}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{PIConfermaImmagini1.png}
 \end{figure}
 
+\textbf{Diagramma di Sequenza: Conferma Immagini - Server}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{PIConfermaImmagini2.png}
+\end{figure}
 \clearpage
 
-\textbf{Diagramma di Sequenza: condividi Evento ai Gruppi}
-TODO\\
+\textbf{Diagramma di Sequenza: Condividi Evento ai Gruppi}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{PICondividiEventoAiGruppi.png}
+\end{figure}
+
 \textbf{Diagramma di Sequenza: Cerca profili}
-TODO\\
-\textbf{Diagramma di Sequenza: aggiorna}
-TODO
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{PICercaProfili.png}
+\end{figure}
+
+%\adjustbox{valign=c, width=0.95\textheight, angle=90}{\includegraphics{PIConfermaImmagini.png}}
 
 \clearpage
+
 
 \subsection{Progettazione della persistenza}
 
-\subsubsection*{Diagramma E-R}
+\subsubsection{Diagramma E-R}
 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[scale=0.545]{ProgettoDiagrammaER.jpg}
+        \includegraphics[width=\textwidth]{ProgettoDiagrammaER.png}
     \end{center}
 \end{figure}
 
@@ -370,14 +395,14 @@ Esempio: File \texttt{/var/log/wyd.log}\\
 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{ProgettoDeploymentArtefatti.jpg}
+        \includegraphics[height=0.25\textheight]{ProgettoDeploymentArtefatti.png}
     \end{center}
 \end{figure}
-\newpage
+
 \subsubsection{Deployment Type-Level}
 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{ProgettoDeploymentTypeLevel.jpg}
+        \includegraphics[height=0.45\textheight]{ProgettoDeploymentTypeLevel.png}
     \end{center}
 \end{figure}

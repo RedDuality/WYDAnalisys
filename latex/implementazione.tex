@@ -23,9 +23,9 @@ La logica di business dell'applicazione verrà sviluppata su Azure Functions, un
 La persistenza logica sarà affidata a AzureSQL, un database relazionale gestito dalla piattaforma, mentre le foto e i file multimediali verranno salvati su Azure Storage Container.
 Per aggiornare i devices in tempo reale utilizzeremo Azure PubSub, che permette di creare un canale con ogni dispositivo.\\
 Infine, per la fruizione del servizio tramite browser useremo Azure Static Web App, e, in attesa del rilascio ufficiale sul Play Store dell'applicazione, 
-l'applicazione mobile sarà resa disponibile tramite Azure Storage Container.
-\linebreak
-Per quanto riguarda lo sviluppo, i principali linguaggi di programmazione saranno:
+l'applicazione mobile sarà resa disponibile tramite Azure Storage Container.\\
+%\linebreak
+%Per quanto riguarda lo sviluppo, i principali linguaggi di programmazione saranno:
 \begin{itemize}
     \item Flutter per l'interfaccia grafica, che permette di racchiudere in un'unica implementazione applicazioni per dispositivi di tecnologia differente
     \item C\# per la logica di business, nativamente supportato dalle Functions, permette un collegamento diretto tra oggetti logici e database, semplificando la gestione della persistenza.
@@ -38,12 +38,14 @@ Per quanto riguarda lo sviluppo, i principali linguaggi di programmazione sarann
         \includegraphics[width=\textwidth]{ImplementazioneArchitettura.jpg}
     \end{center}
 \end{figure}
+TODO rimuovere vscode\\
 Nel grafico possiamo notare come al centro dell'architettura ci siano le Azure Functions che, all'interno della stessa rete, comunicano con il database relazionale e il Key Vault.
 In base alla richiesta, che partirà sempre dal dispositivo dell'utente, le Functions potranno poi interagire con 
 il servizio Pub-Sub per gli aggiornamenti in tempo reale, 
 Google Firebase per l'autenticazione o 
 Azure Storage Container per le immagini.
 I devices degli utenti avranno quindi la possibilità di contattare autonomamente, oltre alle Functions, sia Google Firebase che il server per la persistenza delle immagini. 
+\clearpage
 \subsection{Monitoraggio}
 Il monitoraggio del sistema avverrà in due modi: tramite salvataggio dei log e controllo delle prestazioni del sistema.\\
 Per quanto riguarda Firebase Authentication vengono forniti in con il servizio sia le interfacce per il controllo delle prestazioni che la gestione dei log.\\
@@ -69,59 +71,177 @@ per ridurre il più possibile l'integrazione di falle nel sicurezza.\\
 
 Di seguito verranno schematizzati alcuni esempi generali per mostrare le modifiche da apportare in seguito alle scelte implementative, come linee guida per il resto del programma.\\
 I casi particolari di interazione verranno dettagliati nella relativa sezione.
-
+\subsubsection{Struttura}
 \paragraph{Struttura: Dominio}\mbox{}\\
 
-Sia per il client che per il server, ogni entità descritta nel dominio verrà mappata con una classe corrispondente.
+Sia per il client che per il server, ogni entità descritta nel dominio verrà mappata con una classe corrispondente.\\
 TODO classi dominio .dart .cs\\
+le classi del server salveranno in maniera logica i collegamenti con gli altri elementi del dominio\\
 
 \paragraph{Struttura: Controller - Client}\mbox{}\\
 Ogni richiesta di dati verso l'esterno verrà implementata grazie a classi che nasconderanno i dettagli necessari per la comunicazione, chiamate API.\\
 Inoltre, funzionalità che vengono ripetute in parti diverse del programma verranno delegate a classi chiamati servizi, che raggrupperanno le richieste per affinità logica.\\
 A titolo esemplificativo, si riportano alcune classi:\\
-TODO classi front API e Services
-notificationservice.
+TODO classi front API e Services\\ groupapi groupservice.\\
+notificationservice\\
 
 Flutter ha una gestione dello stato che si basa sulla vita dei componenti a cui è associato. La persistenza a livello locale ha quindi durata limitata e ricade nella normale programmazione del framework.\\
 La persistenza di livello applicativo verrà suddivisa in base alle classi logiche del dominio. Le classi seguiranno un pattern singleton e verranno create all'avvio dell'applicazione.\\
-TODO front providers
+TODO front providers groupprovider\\
 
 
 \paragraph{Struttura: Controller - Server}\mbox{}\\
 Per sfruttare le caratteristiche di scalabilità delle Functions, il codice dovà essere suddiviso in nuclei di codice indipendenti tra loro, senza la permanenza di uno stato tra una richiesta e l'altra.\\
 Anche in questo caso, alcune funzionalità potrebbero essere condivise da più function, per cui verranno raggruppate in classi chiamate service.\\
+TODO database connection masked by dbContext \\
 Infine, per la conversione delle classi di dominio a quelle di risposta, si implementeranno dei data tranfert objects(DTO) che permetteranno una mappatura corretta con il dominio dei client.\\
+TODO schema classi \\
 
-
-
-
-
-
-
+\clearpage
 \subsubsection{Interazione}
 
-Registrazione\\
+\textbf{Diagramma di Sequenza: Avvio - Client}\\
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[height=0.35\textheight]{IIAvvio.png}
+    \end{center}
+\end{figure}
 
-Login\\
+\textbf{Diagramma di Sequenza: Login - Client}\\
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[height=0.35\textheight]{IILogin.png}
+    \end{center}
+\end{figure}
+\clearpage
 
-Visualizza eventi confermati\\
-
-modifica evento\\
-
-conferma immagini\\
-
-condivisione con gruppi
-
-condivisione tramite link\\
-
-
-
-
-
+\textbf{Diagramma di Sequenza: Registrazione - Client}\\
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[height=0.35\textheight]{IIRegistrazione.png}
+    \end{center}
+\end{figure}
 
 
+\textbf{Diagramma di Sequenza: VerifyToken - Client}\\
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[height=0.45\textheight]{IIVerifyToken1.png}
+    \end{center}
+\end{figure}
+\clearpage
+\textbf{Diagramma di Sequenza: VerifyToken - Server}\\
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{IIVerifyToken2.png}
+    \end{center}
+\end{figure}
+
+Come mostrato nel diagramma, la richiesta di verifica token avviene ogni volta che viene invocata la verifyrequest( quindi anche nei sucessivi grafici).
+\clearpage
+
+\textbf{Diagramma di Sequenza: Initialize - Client}\\
+Initialize è la sequenza che avviene al primo accesso dopo che l'applicazione è stata chiusa. viene eseguita o dopo il login/registrazione, o all'avvio dell'applicazione con un utente già registrato.
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{IIInit.png}
+    \end{center}
+\end{figure}
+
+\textbf{Diagramma di Sequenza: EventService.retrieveMultiple() - Client}\\
+\begin{figure}[h!]
+    \begin{center}
+        \begin{minipage}{0.5\textwidth}
+            \includegraphics[height=0.3\textheight]{IIRetrieveMultiple.png}
+        \end{minipage}
+        \begin{minipage}{0.4\textwidth}
+            RetrieveMultiple di GroupService mantiene la stessa logica, tramite GroupApi e GroupProvider
+        \end{minipage}
+    \end{center}
+\end{figure}
+\clearpage
+
+\textbf{Diagramma di Sequenza: Visualizza eventi proposti - Client}\\
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{IIVisualizzaEventiProposti.png}
+    \end{center}
+\end{figure}\\
+\clearpage
+\textbf{Diagramma di Sequenza: Modifica Evento - Client}\\
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[height=0.37\textheight]{IIModificaEvento1.png}
+    \end{center}
+\end{figure}\\
+
+\textbf{Diagramma di Sequenza: Modifica Evento - Server}\\
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[height=0.42\textheight]{IIModificaEvento2.png}
+    \end{center}
+\end{figure}
+\clearpage
+\textbf{Diagramma di Sequenza: Aggiorna Evento - Client}\\
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[height=0.45\textheight]{IIAggiornaEvento.png}
+    \end{center}
+\end{figure}
+
+\textbf{Diagramma di Sequenza: Recupera Immagini - Client}\\
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[height=0.35\textheight]{IIRecuperaImmagini.png}
+    \end{center}
+\end{figure}
+\clearpage                                                                      
+\textbf{Diagramma di Sequenza: CaricaImmagini - Server}\\
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{IICaricaImmagini.png}
+    \end{center}
+\end{figure}
+\clearpage
+
+\textbf{Diagramma di Sequenza: Condivisione ai Gruppi - Client}\\
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[height=0.32\textheight]{IICondividiAiGruppi1.png}
+    \end{center}
+\end{figure}
+
+\textbf{Diagramma di Sequenza: Condivisione ai Gruppi - Server}\\
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[height=0.5\textheight]{IICondividiAiGruppi2.png}
+    \end{center}
+\end{figure}
+\clearpage
+comportamento caricamento immagini\\
+carica image -> 
+foreach(image)\\
+compress image -> check image dimension\\
+if toolarge -> avoid \\
+else save\\
+then\\
+if request size too big -> divide request\\
+
+send images\\
+check request size if too big discard\\
+else for each(image) -> upload 
+then\\
+if at least one image was saved -> update db notify users\\
 
 
+
+
+
+
+
+
+\clearpage
 \subsection{Deployment e Aggiornamento del Codice}
 
 \subsubsection{Deployment Type-Level: Client}
@@ -132,7 +252,7 @@ condivisione tramite link\\
     \end{center}
 \end{figure}
 Aggiornamento lato web gestito automaticamente, lato applicazione tramite notifica che chiederà all'utente di aggiornare la sua applicazione.\\
-\newpage
+\clearpage
 \subsubsection{Deployment Type-Level: Server}
 
 \begin{figure}[h!]
@@ -142,6 +262,6 @@ Aggiornamento lato web gestito automaticamente, lato applicazione tramite notifi
 \end{figure}
 L'aggiornamento del codice eseguito sulle Azure Functions avverrà tramite un comando dato tramite interfaccia grafica su Visual Studio Code grazie all'estensione Azure Tools.\\
 Le modifiche al dominio del database verranno applicate tramite migrations, 
-generate automaticamente dal framework C# grazie alla libreria EFCore che permette di mappare le classi in tabelle SQL.\\
+generate automaticamente dal framework C\# grazie alla libreria EFCore che permette di mappare le classi in tabelle SQL.\\
 
 \subsection{Testing e Performances}
