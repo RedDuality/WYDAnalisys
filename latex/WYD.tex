@@ -68,14 +68,15 @@
 \begin{document}
 
 \input{./titlepage.tex}
+\pagenumbering{gobble}
 \tableofcontents
 \newpage
 \pagenumbering{arabic}
 \input{./introduzione.tex}
 \input{./abstract.tex}
 \input{./requisiti.tex}
-%\input{./analisi.tex}
+\input{./analisi.tex}
 %\input{./test.tex}
-%\input{./progetto.tex}
-%\input{./implementazione.tex}
+\input{./progetto.tex}
+\input{./implementazione.tex}
 \end{document}

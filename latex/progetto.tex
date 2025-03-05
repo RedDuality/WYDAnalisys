@@ -76,8 +76,6 @@ A livello di design distinguiamo tre componenti principali: Model, View e Contro
 Mentre la View sarà delegata completamente ai Client, Model e Controller saranno invece suddivisi tra il Client e il Server,
 in base alle necessità di caching dei dati e della località delle operazioni di business.\\
 Si riportano di seguito i diagrammi di package e componenti che descrivono l'architettura del sistema.\\
-TODO accesso to DB
-
 \newpage
 \begin{figure}[h!]
     \begin{center}
@@ -103,6 +101,14 @@ Per quanto riguarda il dominio, distinguiamo il dominio del server dal dominio d
 
 \vspace{1em}
 
+\textbf{Diagramma di dettaglio: Dominio Client}\\
+Dal punto di vista del client alcune relazioni non sono più rilevanti o vengono semplificate integrando alcuni valori all'interno di altri elementi del dominio.
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[height=0.7\textheight]{ProgettoDominioClient.png}
+    \end{center}
+\end{figure}
+\clearpage
 \textbf{Diagramma di dettaglio: Dominio Server}\\
 Aggiungiamo a tutti i componenti principali un identificativo anfanumerico chiamato hash,
 e le date di creazione e di ultima modifica per gestire meglio i log e gli aggiornamenti.
@@ -112,17 +118,9 @@ Inoltre, aggiungiamo un componente per definire il ruolo dell'utente sul profilo
         \includegraphics[width=\textwidth]{ProgettoDominioServer.png}
     \end{center}
 \end{figure}
-
 \newpage
 
-\textbf{Diagramma di dettaglio: Dominio Client}\\
-Dal punto di vista del client alcune relazioni non sono più rilevanti o vengono semplificate integrando alcuni valori all'interno di altri elementi del dominio.
-\begin{figure}[h!]
-    \begin{center}
-        \includegraphics[width=\textwidth]{ProgettoDominioClient.png}
-    \end{center}
-\end{figure}
-\clearpage
+
 
 \subsubsection{Struttura: Interfacce}
 
@@ -268,7 +266,7 @@ Ogni interfaccia verrà implementata da un relativo controller.
 
 
 
-\subsubsection{Interazione}
+\subsection{Interazione}
 
 
 Si riportano di seguito i vari diagrammi di sequenza, aggiornati rispetto a quelli visti in fase di analisi.\\
