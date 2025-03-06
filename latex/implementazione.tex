@@ -25,8 +25,7 @@ La persistenza logica sarà affidata a AzureSQL, un database relazionale gestito
 Per aggiornare i devices in tempo reale utilizzeremo Azure PubSub, che permette di creare un canale con ogni dispositivo.\\
 Infine, per la fruizione del servizio tramite browser useremo Azure Static Web App, e, in attesa del rilascio ufficiale sul Play Store dell'applicazione, 
 l'applicazione mobile sarà resa disponibile tramite Azure Storage Container.\\
-%\linebreak
-%Per quanto riguarda lo sviluppo, i principali linguaggi di programmazione saranno:
+Per quanto riguarda lo sviluppo, i principali linguaggi di programmazione saranno:
 \begin{itemize}
     \item Flutter per l'interfaccia grafica, che permette di racchiudere in un'unica implementazione applicazioni per dispositivi di tecnologia differente
     \item C\# per la logica di business, nativamente supportato dalle Functions, permette un collegamento diretto tra oggetti logici e database, semplificando la gestione della persistenza.
@@ -261,49 +260,30 @@ Initialize è la sequenza che avviene al primo accesso dopo che l'applicazione �
     \end{center}
 \end{figure}
 \clearpage
-comportamento caricamento immagini\\
-carica image -> 
-foreach(image)\\
-compress image -> check image dimension\\
-if toolarge -> avoid \\
-else save\\
-then\\
-if request size too big -> divide request\\
-
-send images\\
-check request size if too big discard\\
-else for each(image) -> upload 
-then\\
-if at least one image was saved -> update db notify users\\
-
-
-
-
-
-
 
 
 \clearpage
 \subsection{Deployment e Aggiornamento del Codice}
 
 \subsubsection{Deployment Type-Level: Client}
+Il codice distribuito sulla web app e l'applicativo salvato sul container verranno aggiornati automaticamente tramite GitHub Actions.\\
+Lato browser il codice si aggiorna ad ogni accesso, mentre l'applicativo necessita di venire reinstallato. 
+Per questa ragione, gli utenti che usano l'applicazione verranno notificati nel momento del caricamento di una nuova versione.\\
 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{ImplementazioneDeployment.jpg}
+        \includegraphics[width=\textwidth]{DeployFront.png}
     \end{center}
 \end{figure}
-Aggiornamento lato web gestito automaticamente, lato applicazione tramite notifica che chiederà all'utente di aggiornare la sua applicazione.\\
-\clearpage
+
 \subsubsection{Deployment Type-Level: Server}
-
+L'aggiornamento del codice eseguito sulle Azure Functions avverrà con un comando tramite interfaccia grafica su Visual Studio Code grazie all'estensione Azure Tools.\\
+Le modifiche al dominio del database verranno applicate tramite migrations, generate automaticamente dal framework C\# grazie alla libreria EFCore che permette di mappare le classi in tabelle SQL.\\
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{ImplementazioneDeployment.jpg}
+        \includegraphics[width=\textwidth]{DeployBack.png}
     \end{center}
 \end{figure}
-L'aggiornamento del codice eseguito sulle Azure Functions avverrà tramite un comando dato tramite interfaccia grafica su Visual Studio Code grazie all'estensione Azure Tools.\\
-Le modifiche al dominio del database verranno applicate tramite migrations, 
-generate automaticamente dal framework C\# grazie alla libreria EFCore che permette di mappare le classi in tabelle SQL.\\
+
 
 \subsection{Testing e Performances}
