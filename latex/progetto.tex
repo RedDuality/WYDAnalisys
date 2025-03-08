@@ -18,12 +18,12 @@ Dall'analisi dei requisiti sono emersi i seguenti requisiti non funzionali:
 
 L'affidabilità e la scalabilità assumono fondamentale importanza vista la natura del software,
 che deve permettere agli utenti di poter organizzare, coordinare e condividere eventi.
-La compromissione di questi risulterebbe in un peggioramento dell'esperienza utente, da cui consegue una perdita di reputazione o di fedeltà del cliente.
+La compromissione di questi risulterebbe in un peggioramento dell'esperienza utente, da cui consegue una perdita di reputazione o di fedeltà del cliente.\\
 Sarà necessario assicurare la sicurezza fisica dei dati immagazzinati nel sistema, così come la sicurezza software dei dati e delle comunicazioni.
 In caso di compromissione la perdita d'immagine e i risvolti legali sarebbero significativi.
-L'utilizzo di protocolli e tecnologie standard del settore dovrebbero garantire la sicurezza del sitema senza peggiorarne significativamente l'usabilità o le prestazioni.
-Nonostante il sistema non presenti vincoli di tempo stringenti, una caratteristica essenziale dell'applicazione sarà la velocità di distribuire gli aggiornamenti ai vari utenti.
-Inoltre, l'intuitività dell'interfaccia è fondamentale per l'usabilità e la diffusione del prodotto.
+L'utilizzo di protocolli e tecnologie standard del settore dovrebbero garantire la sicurezza del sitema senza peggiorarne significativamente l'usabilità o le prestazioni.\\
+Nonostante il sistema non presenti vincoli di tempo stringenti, una caratteristica essenziale dell'applicazione sarà la velocità di distribuire gli aggiornamenti ai vari utenti.\\
+Infine, l'intuitività dell'interfaccia è fondamentale per l'usabilità e la diffusione del prodotto.
 
 \subsubsection{Scelte tecnologiche}
 
@@ -31,11 +31,11 @@ La scelta tecnologica principale ricade sul tipo di applicazione che si andrà a
 sviluppare.
 In questo caso la scelta è quella di sviluppare sia un'interfaccia per browser web, sia un'applicazione per dispositivo mobile, per i seguenti motivi:
 \begin{enumerate}
-    \item un'interfaccia web consente di avere una
+    \item l'interfaccia web consente di avere una
           piattaforma standard accessibile da quasi tutti i dispositivi, con il solo
-          requisito di un browser, potenzialmente permettendo(in base alla dimensione dello schermo) una maggior facilità di utilizzo, per rispondere all'esigenza organizzativa di medio o lungo termine.
-          In questo modo si evita di restringere le possibilità di accesso al servizio.
-    \item  l'applicazione mobile permette una gestione a breve termine e un aggiornamento costante, ed è fondamentale per recuperare le immagini dell'utente.
+          requisito di un browser, potenzialmente permettendo (in base alla dimensione dello schermo) una maggior facilità di utilizzo, per rispondere all'esigenza organizzativa di medio o lungo termine.
+          In questo modo allargano le possibilità di accesso al servizio.
+    \item  l'applicazione mobile permette una gestione a breve termine e un aggiornamento costante, ed è fondamentale per recuperare le immagini scattate dall'utente.
 \end{enumerate}
 \newpage
 \subsubsection{Scelta dell'architettura}
@@ -52,7 +52,7 @@ Per distribuire meglio il carico, si è deciso di scomporre i server in base all
 
 \begin{itemize}
     \item[-] Un server per le funzionalità di autenticazione
-    \item[-] Un server principale che fornisce i servizi agli utenti
+    \item[-] Un server principale che risponde alle richieste dei client
     \item[-] Un server che gestisce la propagazione degli aggiornamenti agli utenti
 \end{itemize}
 
@@ -71,7 +71,7 @@ ma anche un rischio accettabile, in quanto ridurrà di molto il carico del serve
 \subsubsection{Pattern architetturali e di design}
 
 Il pattern Client-Server è stato scelto come pattern architetturale per gestire l'accesso, le immagini e i servizi principali.\\
-Il pattern Event Driven sarà invece usato per notificare i Client degli aggiornamenti.
+Il pattern Event Driven sarà invece usato per notificare i Client degli aggiornamenti.\\
 A livello di design distinguiamo tre componenti principali: Model, View e Controller.
 Mentre la View sarà delegata completamente ai Client, Model e Controller saranno invece suddivisi tra il Client e il Server,
 in base alle necessità di caching dei dati e della località delle operazioni di business.\\
@@ -102,7 +102,9 @@ Per quanto riguarda il dominio, distinguiamo il dominio del server dal dominio d
 \vspace{1em}
 
 \textbf{Diagramma di dettaglio: Dominio Client}\\
-Dal punto di vista del client alcune relazioni non sono più rilevanti o vengono semplificate integrando alcuni valori all'interno di altri elementi del dominio.
+A tutti i componenti principali si aggiunge un identificativo anfanumerico chiamato hash, 
+per separare gli oggetti dall'identificativo assegnatogli dal database, che potrebbe portare a problemi di predittivit, e quindi compromettere l'autorizzazione all'accesso delle risorse da parte degli utenti.\\
+Viene aggiungo il ruolo tra l'user e il profilo, per permettere una gestione dei permessi.
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[height=0.7\textheight]{ProgettoDominioClient.png}
@@ -110,8 +112,8 @@ Dal punto di vista del client alcune relazioni non sono più rilevanti o vengono
 \end{figure}
 \clearpage
 \textbf{Diagramma di dettaglio: Dominio Server}\\
-Aggiungiamo a tutti i componenti principali un identificativo anfanumerico chiamato hash,
-e le date di creazione e di ultima modifica per gestire meglio i log e gli aggiornamenti.
+Oltre all'Hash, per mantenere traccia delle attività e delle modifiche si aggiungono, ove necessario, 
+le date di creazione e di ultima modifica.\\
 Inoltre, aggiungiamo un componente per definire il ruolo dell'utente sul profilo.
 \begin{figure}[h!]
     \begin{center}

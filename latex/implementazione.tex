@@ -5,9 +5,9 @@
 
 \subsubsection{Requisiti non funzionali}
 Per garantire la scalabilità e l'affidabilità del progetto useremo tecnologie in cloud,
- che permettono prestazioni altrimenti irraggiungibili, soprattutto nelle fasi iniziali dell'applicazione.\\
+ che garantiscono prestazioni altrimenti irraggiungibili ad un costo contenuto, soprattutto nelle fasi iniziali del progetto.\\
 Questo comporta un sostanziale riduzione del carico di lavoro, in quanto al gestore cloud verranno delegati i requisiti di 
-affidabilità, scalabilità, protezione da attacchi Ddos e la velocità delle comunicazioni\\ 
+affidabilità, scalabilità, protezione da attacchi Ddos e la velocità delle comunicazioni.\\ 
 \subsubsection{Scelte tecnologiche}
 
 Per familiarità con il sistema, disponibilità dei fondi e servizi offerti, 
@@ -21,14 +21,14 @@ oltre a dare la possibilità di gestire più identity providers.
 I dati relativi agli utenti, quindi in particolare l'email e la password verranno conservati nella memoria interna al servizio, senza che quindi sia richiesta una gestione da parte del programma.\\
 
 La logica di business dell'applicazione verrà sviluppata su Azure Functions, un servizio Faas che scala automaticamente le richieste al server.
-La persistenza logica sarà affidata a AzureSQL, un database relazionale gestito dalla piattaforma, mentre le foto e i file multimediali verranno salvati su Azure Storage Container.
-Per aggiornare i devices in tempo reale utilizzeremo Azure PubSub, che permette di creare un canale con ogni dispositivo.\\
+La persistenza logica sarà affidata a Azure SQL Server, un database relazionale gestito dalla piattaforma, mentre le foto e i file multimediali verranno salvati su Azure Storage Container.
+Per aggiornare i devices in tempo reale verrà usato Azure PubSub, che permette di creare un canale di comunizazione con ogni dispositivo.\\
 Infine, per la fruizione del servizio tramite browser useremo Azure Static Web App, e, in attesa del rilascio ufficiale sul Play Store dell'applicazione, 
 l'applicazione mobile sarà resa disponibile tramite Azure Storage Container.\\
 Per quanto riguarda lo sviluppo, i principali linguaggi di programmazione saranno:
 \begin{itemize}
     \item Flutter per l'interfaccia grafica, che permette di racchiudere in un'unica implementazione applicazioni per dispositivi di tecnologia differente
-    \item C\# per la logica di business, nativamente supportato dalle Functions, permette un collegamento diretto tra oggetti logici e database, semplificando la gestione della persistenza.
+    \item C\# per la logica di business: nativamente supportato dalle Functions, permette un collegamento diretto tra oggetti logici e database, semplificando la gestione della persistenza.
 \end{itemize}
 \pagebreak
 
@@ -42,12 +42,12 @@ Nel grafico possiamo notare come al centro dell'architettura ci siano le Azure F
 In base alla richiesta, che partirà sempre dal dispositivo dell'utente, le Functions potranno poi interagire con 
 il servizio Pub-Sub per gli aggiornamenti in tempo reale, 
 Google Firebase per l'autenticazione o 
-Azure Storage Container per le immagini.
+Azure Storage Container per le immagini.\\
 I devices degli utenti avranno quindi la possibilità di contattare autonomamente, oltre alle Functions, sia Google Firebase che il server per la persistenza delle immagini. 
 \clearpage
 \subsection{Monitoraggio}
 Il monitoraggio del sistema avverrà in due modi: tramite salvataggio dei log e controllo delle prestazioni del sistema.\\
-Per quanto riguarda Firebase Authentication vengono forniti in con il servizio sia le interfacce per il controllo delle prestazioni che la gestione dei log.\\
+Per quanto riguarda Firebase Authentication vengono forniti con il servizio sia le interfacce per il controllo delle prestazioni che la gestione dei log.\\
 Per monitorare le Azure Functions sarà necessario collegare Azure Application Insights che provvede a controllare il funzionamento e la risposta del servizio.
 La creazione dei log è invece affidata al programmatore, che verranno poi salvarti tramite function su un file sistem dedicato su un Azure Container. 
 
@@ -75,16 +75,15 @@ Sia per il client che per il server, ogni entità descritta nel dominio verrà m
 \textbf{Modello delle Classi: Dominio Client}\\
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{FrontModelClassDiagram.png}
+        \includegraphics[height=0.7\textheight]{FrontModelClassDiagram.png}
     \end{center}
 \end{figure}
 \clearpage
 
 \textbf{Modello delle Classi: Dominio Server}\\
 \begin{figure}[h!]
-    \begin{center}
-        \includegraphics[width=\textwidth]{ModelClassDiagram.png}
-    \end{center}
+    \centering
+    \adjustbox{valign=c, width=0.9\textheight, angle=90}{\includegraphics{ModelClassDiagram.png}}
 \end{figure}
 \clearpage
 
@@ -100,18 +99,21 @@ Infine, per la conversione delle classi di dominio a quelle di risposta, si impl
 \clearpage
 
 \subsubsection{Struttura: Controller - Client}\mbox{}\\
-Ogni richiesta di dati verso l'esterno verrà implementata grazie a classi che nasconderanno i dettagli necessari per la comunicazione, chiamate API.\\
+Ogni richiesta di dati verso l'esterno verrà implementata grazie a classi che nascondono i dettagli necessari per la comunicazione, chiamate API.\\
 Inoltre, funzionalità che vengono ripetute in parti diverse del programma verranno delegate a classi chiamate servizi, che raggrupperanno le richieste per affinità logica.\\
-A titolo esemplificativo, si riportano alcune classi:\\
+A titolo esemplificativo, si riportano alcune classi.\\
+
 \textbf{Modello delle Classi: Servizi}\\
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[height=0.7\textheight]{FrontServiceClassDiagram.png}
     \end{center}
 \end{figure}
-
-Flutter ha una gestione dello stato che si basa sulla vita dei componenti a cui è associato. La persistenza a livello locale ha quindi durata limitata e ricade nella normale programmazione del framework.\\
-La persistenza di livello applicativo verrà suddivisa in base alle classi logiche del dominio. Le classi seguiranno un pattern singleton e verranno create all'avvio dell'applicazione.\\
+\clearpage
+Flutter ha una gestione dello stato che si basa sulla vita dei componenti a cui è associato. 
+La persistenza a livello locale ha quindi durata limitata e ricade nella normale programmazione del framework.\\
+La persistenza di livello applicativo verrà suddivisa in base alle classi logiche del dominio e mantenuta in classi Provider. 
+Le classi seguiranno un pattern singleton e verranno create all'avvio dell'applicazione.\\
 \textbf{Modello delle Classi: Provider}\\
 \begin{figure}[h!]
     \begin{center}
@@ -130,7 +132,7 @@ Anche in questo caso, alcune funzionalità potrebbero essere condivise da più f
     \end{center}
 \end{figure}
 \clearpage
-Sia nel caso del database, che nel caso del server per le notifiche, la connessione sarà nascosta da una classe apposita, rispettivamente Dbcontext e WebPubSubServiceClient.\\
+Sia nel caso del database, che nel caso del server per le notifiche, la connessione sarà nascosta da una classe apposita, rispettivamente DbContext e WebPubSubServiceClient.\\
 \textbf{Modello delle Classi: Servizi}\\
 \begin{figure}[h!]
     \begin{center}
@@ -178,7 +180,7 @@ Sia nel caso del database, che nel caso del server per le notifiche, la connessi
     \end{center}
 \end{figure}
 
-Come mostrato nel diagramma, la richiesta di verifica token avviene ogni volta che viene invocata la verifyrequest( quindi anche nei sucessivi grafici).
+Come mostrato nel diagramma, la richiesta di verifica token al server Firebase avviene ogni volta che viene invocata la verifyRequest (quindi anche nei sucessivi grafici).
 \clearpage
 
 \textbf{Diagramma di Sequenza: Initialize - Client}\\
@@ -239,10 +241,15 @@ Initialize è la sequenza che avviene al primo accesso dopo che l'applicazione �
 \end{figure}
 \clearpage                                                                      
 \textbf{Diagramma di Sequenza: CaricaImmagini - Server}\\
+Il salvataggio dell'immagine richiede la creazione di un oggetto con un hash univoco da poi collegare all'evento. 
+La creazione logica dell'oggetto e il suo effettivo salvataggio sul database avvengono in due momenti diversi. 
+Questo permette il salvataggio in contemporanea di più immagini verso il container, 
+la resilienza nel caso di un errore durante il caricamento di una singola immagine e
+l'ottimizzazione dell'utilizzo del database, concentrando le scritture in un unico momento.
+Questo riduce inoltre la probabilità di collisione di richieste di modifica sullo stesso evento.
 \begin{figure}[h!]
-    \begin{center}
-        \includegraphics[width=\textwidth]{IICaricaImmagini.png}
-    \end{center}
+    \centering
+    \adjustbox{valign=c, width=0.8\textheight, angle=90}{\includegraphics{IICaricaImmagini.png}}
 \end{figure}
 \clearpage
 
@@ -261,8 +268,6 @@ Initialize è la sequenza che avviene al primo accesso dopo che l'applicazione �
 \end{figure}
 \clearpage
 
-
-\clearpage
 \subsection{Deployment e Aggiornamento del Codice}
 
 \subsubsection{Deployment Type-Level: Client}
@@ -272,7 +277,7 @@ Per questa ragione, gli utenti che usano l'applicazione verranno notificati nel 
 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{DeployFront.png}
+        \includegraphics[height=0.28\textheight]{DeployFront.png}
     \end{center}
 \end{figure}
 
@@ -281,9 +286,7 @@ L'aggiornamento del codice eseguito sulle Azure Functions avverrà con un comand
 Le modifiche al dominio del database verranno applicate tramite migrations, generate automaticamente dal framework C\# grazie alla libreria EFCore che permette di mappare le classi in tabelle SQL.\\
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{DeployBack.png}
+        \includegraphics[height=0.23\textheight]{DeployBack.png}
     \end{center}
 \end{figure}
-
-
-\subsection{Testing e Performances}
+\clearpage
