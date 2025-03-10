@@ -4,32 +4,32 @@ Tutti i test condividono una funzione per simulare il database:
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestInit.png}
+        \caption{Simulazione del Database}
     \end{center}
 \end{figure}
 \subsubsection{AccountService}
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=\textwidth]{TestAccount1.png}
-    \end{center}
-\end{figure}
-\begin{figure}[h!]
-    \begin{center}
         \includegraphics[width=\textwidth]{TestAccount2.png}
+        \caption{Create: happy Path}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestAccount3.png}
+        \caption{Create: mail nulla}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestAccount4.png}
+        \caption{Create: uid nullo}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestAccount5.png}
+        \caption{Retrive: happy path}
     \end{center}
 \end{figure}
 \clearpage
@@ -38,26 +38,31 @@ Tutti i test condividono una funzione per simulare il database:
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestProfile1.png}
+        \caption{Create: happy path}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestProfile2.png}
+        \caption{Create: input nullo}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestProfile3.png}
+        \caption{SetEventRole: happy path}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestProfile4.png}
+        \caption{RetrieveEvents: happy path}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestProfile5.png}
+        \caption{RetrieveEvents: nessun evento}
     \end{center}
 \end{figure}
 \clearpage
@@ -67,51 +72,61 @@ Tutti i test condividono una funzione per simulare il database:
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestUserInit.png}
+        \caption{Creazione di UserService}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestUser1.png}
+        \caption{AddProfile: happy path}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestUser2.png}
+        \caption{AddProfile: user nullo}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestUser3.png}
+        \caption{AddProfile: profilo nullo}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestUser4.png}
+        \caption{Create: happy path}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestUser5.png}
+        \caption{RetrieveEvents: happy path}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestUser6.png}
+        \caption{SetProfileRole: happy path}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestUser7.png}
+        \caption{SetProfileRole: user nullo}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestUser8.png}
+        \caption{SetProfileRole: profilo nullo}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestUser9.png}
+        \caption{SetProfileRole: profilo non trovato}
     \end{center}
 \end{figure}
 \clearpage
@@ -120,75 +135,90 @@ Tutti i test condividono una funzione per simulare il database:
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestEventInit.png}
+        \caption{Creazione di EventService}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestEvent1.png}
+        \caption{Create: happy path}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestEvent2.png}
+        \caption{Create: evento nullo}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestEvent3.png}
+        \caption{Create: profilo nullo}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestEvent4.png}
+        \caption{Create: profilo confermato}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestEvent5.png}
+        \caption{RetrieveByHash: happy path}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestEvent6.png}
+        \caption{RetrieveByHash: hash invalido}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestEvent7.png}
+        \caption{RetrieveByHash: hash nullo}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestEvent8.png}
+        \caption{Confirm: happy path}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestEvent9.png}
+        \caption{Confirm: hash invalido}
     \end{center}
 \end{figure}\begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestEvent10.png}
+        \caption{Confirm: profilo invalido}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestEvent12.png}
+        \caption{Decline: happy path}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestEvent13.png}
+        \caption{Share: happy path}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestEvent14.png}
+        \caption{Share: lista profili vuota}
     \end{center}
 \end{figure}
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{TestEvent15.png}
+        \caption{Share: lista profili nulla}
     \end{center}
 \end{figure}
 
