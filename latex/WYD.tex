@@ -23,7 +23,7 @@
 \usepackage{array,ragged2e}
 \usepackage{booktabs}
 
-\renewcommand{\baselinestretch}{1.5} 
+
 \graphicspath{
   {./immagini/}
   {./immagini/requisiti/}
@@ -44,6 +44,8 @@
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
 \newcolumntype{P}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\renewcommand{\baselinestretch}{1.5} 
+
 \newlist{tabitem}{itemize}{1}
 \setlist[tabitem]{nosep,
                   topsep     = 0pt,
@@ -65,14 +67,11 @@
 
 \mycomment{}
 
-%%%%%%%%%%% Moduli per ogni sezione %%%%%%%%%%%%%%%
-
 \begin{document}
-
-%\input{./titlepage.tex}
-\pagenumbering{gobble}
+\input{./titlepage.tex}
+\pagenumbering{roman}
 \tableofcontents
-\newpage
+\clearpage
 \pagenumbering{arabic}
 \input{./introduzione.tex}
 \input{./requisiti.tex}
