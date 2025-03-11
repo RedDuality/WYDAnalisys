@@ -1,4 +1,4 @@
-\section{Introduzione}
+\section*{Introduzione}
 
 L'informatica svolge da anni ruoli sempre più essenziali nelle gestioni aziendali ma anche nella vita di tutti i giorni. 
 Per applicazioni con particolari requisiti di sicurezza, migliaia di utenti o specifiche garanzie di servizio, la sicurezza, 
@@ -11,16 +11,14 @@ quali il monitoraggio degli eventi o tutta la gestione della sicurezza.\\
 \\
 I cloud providers nascono con la finalità di proporre piattaforme che risolvano la gran parte dei problemi comuni 
 nascondendo e astraendo la complessità che questi problemi richiedono.
-Questo comporta vantaggi per entrambi i lati: 
-\begin{itemize}
-    \item Lo sviluppatore può concentrarsi sulla logica applicativa, scegliendo il prodotto/i che più si addice alle sue esigenze, 
-    preoccupandosi solamente di fare in modo che la configurazione dei servizi sia corretta. 
-    Non deve più preoccuparsi per la gestione fisica delle macchine, e può, nella maggior parte dei casi, pagare solo per le risorse che utilizza.
-    \item Il cloud provider, vendendo lo stesso prodotto a più clienti, concentra le risorse richieste per la manutenzione del servizio
-    e ammorta i volumi computazionali eventualmente richiesti per la gestione di carichi elevati, 
-    guadagnando sulle risorse risparmiate rispetto al caso in cui ogni servizio fosse stato gestito autonomamente.
-\end{itemize}
-    I cloud providers forniscono molteplici servizi con capacità e responsabilità diverse, specifiche per varie esigenze, 
+Questo comporta vantaggi per sia per lo sviluppatore che per il cloud provider. 
+Lo sviluppatore può concentrarsi sulla logica applicativa, scegliendo il prodotto/i che più si addice alle sue esigenze, 
+preoccupandosi solamente di fare in modo che la configurazione dei servizi sia corretta. 
+Non deve più preoccuparsi per la gestione fisica delle macchine, e può, nella maggior parte dei casi, pagare solo per le risorse che utilizza.
+Il cloud provider, vendendo lo stesso prodotto a più clienti, concentra le risorse richieste per la manutenzione del servizio
+e ammorta i volumi computazionali eventualmente richiesti per la gestione di carichi elevati, 
+guadagnando sulle risorse risparmiate rispetto al caso in cui ogni servizio fosse stato gestito autonomamente.
+I cloud providers forniscono molteplici servizi con capacità e responsabilità diverse, specifiche per varie esigenze, 
 avvicinandosi il più possibile ai bisogni specifici dei clienti.\\
 \\
 La facilità di configurazione e il costo ridotto iniziale dei servizi proposti rende possibile anche a realtà di piccole e medie dimensioni 
@@ -50,82 +48,30 @@ adattando le tecnologie alla soluzione ricercata.
 Una struttura sicura, scalabile ed affidabile, infatti, lo è tanto grazie alle tecnologie usate quanto alle scelte ingegneristiche di come usarle.
 Seguendo lo stesso approccio applicato nell'ingegneria del software, sarà possibile affiancare alla normale progettazione dello sviluppo 
 la scelta e la modalità di utilizzo dei servizi in cloud.\\
+
+\clearpage
+
+\subsection{Descrizione dei capitoli}
 \\
 Nell'ingegneria del software, la branca che si occupa di sviluppare un prodotto partendo da un'idea iniziale, 
 si individuano diverse fasi per la creazione di un software resistente e mantenibile, oltre che efficace.\\
-\begin{itemize}
-    \item La prima fase consiste con l'abstract, in cui si sintetizza l'idea generale del progetto, 
+
+    La prima fase consiste con l'abstract, in cui si sintetizza l'idea generale del progetto, 
     specificando le funzionalità principali e la visione d'insieme dell'applicazione.
-    \item Segue il documento dei requisiti, che analizza l'abstract e ne estrae in maniera formale i requisiti e introducendo i casi d'uso, 
+    Segue il documento dei requisiti, che analizza l'abstract e ne estrae in maniera formale i requisiti e introducendo i casi d'uso, 
     ovvero tutte le azioni che il programma può compiere.\\
     L'analisi del problema deduce una struttura iniziale e inizia a definire il comportamento generale del programma.\\
     Il documento dei requisiti e l'analisi vengono elaborati in collaborazione con il committente, 
     per assicurarsi che le richieste siano uniformemente intese da entrambe le parti.
-    \item In fase di progettazione vengono prese decisioni ad alto livello indipendenti dalle tecnologie specifiche da utilizzare, 
+    In fase di progettazione vengono prese decisioni ad alto livello indipendenti dalle tecnologie specifiche da utilizzare, 
     identificandone però le caratteristiche necessarie. 
     In questa fase si individuano i possibili punti critici e le particolarità richieste al sistema.
     Si definiscono quindi il tipo di architettura, la struttura del sistema e la sua interazione tra le parti.
-    \item La fase di implementazione documenta le scelte applicate sia a livello tecnologico che a livello di realizzazione. 
+    La fase di implementazione documenta le scelte applicate sia a livello tecnologico che a livello di realizzazione. 
     Seguendo le scelte prese in fase di progettazione, dettaglia le scelte architetturali, delle diverse partei del codice e della loro interzione.
-\end{itemize}
 Seguendo lo stesso schema, per lo sviluppo di un sistema che presenti nei requisiti l'essere scalabile ed affidabile, 
 le scelte relative necessarie emergono, vendono analizzate e applicate in linea con le altre scelte progettuali del programma.\\
 \clearpage
 
 
 
-
-
-
-
-
-
-
-
-\subsection{Il progetto}
-
-L'idea per il progetto di questa tesi nasce come risposta a un problema sempre più attuale in un mondo sempre più connesso.
-La molteplicità di contatti, la velocità delle comunicazioni e l'accesso universale alle notizie 
-rendono la creazione, l'organizzazione e la partecipazione ad eventi estremamente semplice ma al contempo frenetico.
-Si fa fatica a seguire a tutte le occasioni a cui potremmo prendere parte.
-Pensiamo alle riunioni di lavoro, alle serate tra amici, agli appuntamenti per un caffè.
-Ma anche a una fiera, una convention aziendale, ad un concerto, alla partita di calcio o alla mostra dell'artista che ci è sempre piaciuto e che passa per una volta nella città vicina.
-Queste occasioni spesso si accavallano o si finisce per dimenticarsene, potenzialmente creando delusione e/o frustrazione.\\
-\\
-Quando condividiamo un evento, a volte siamo noi a proporre, altre volte ci invitano. \\
-Quando ci invitano, spesso magari abbiamo già un altro impegno, o magari un invito di un altro contatto a cui dobbiamo ancora dare conferma. 
-E sul momento magari non ci si ricorda, si conferma per poi dover, purtroppo, disdire l'evento sovrapposto.\\
-Quando invece siamo noi a proporre, potremmo trovarci nella difficoltà di trovare un evento da proporre, 
-scrutando centinaia di profili social di tutti i locali di cui abbiamo sentito parlare nella speranza che propongano qualcosa, 
-oppure non sappiamo se l'altra persona possa essere libera o meno. 
-Questo problema si ripresenta ancora più grave nell'organizzazione di gruppo, in cui bisogna riuscire a far combaciare gli impegni di tre, quattro o più persone.\\
-\\
-Ecco quindi l'opportunità di creare uno strumento che permetta di semplificare la proposta e la gestione degli eventi, 
-separando la proposta dalla conferma, per dare modo di valutare l'effettiva disponibilità ma anche rendere più facile un'invito a partecipare.
-Allo stesso modo si può semplificare la ricerca di occasioni, creando uno spazio unico virtuale in cui pubblicare e consultare gli eventi.\\
-\\
-Alla base della funzionalità sussiste l'idea di affiancare alla classica agenda degli impegni presi (e quindi confermati) 
-un'altro calendario in cui sono presenti tutti gli eventi a cui si potrebbe partecipare. 
-La conferma di un evento lo sposterà all'interno dell'agenda.\\
-Gli eventi creati potranno essere condivisi a persone o gruppi di persone, e sarà possibile vedere chi conferma la sua presenza.\\
-Inoltre, nell'epoca delle immagini e della condivisione, si prevede la possibilità di condividere le proprie foto con chiunque abbia partecipato all'evento.\\
-\\
-La realizzazione di questo tipo di programma prevede particolarità che incrociano tante necessità diverse.
-In primis la persistenza dell'agenda dell'utente, che deve essere mantenuta e aggiornata per garantire affidabilità e coerenza per un uso distribuito del servizio.
-Si aggiunge poi l'aspetto della condivisione degli eventi, che vede necessario l'aggiornare tutti gli attori interessati dalle modifiche apportate.
-Infine, il caricamento e salvataggio delle foto introduce la gestione di richieste e di memoria di dimensioni importanti.\\
-\\
-\clearpage
-
-\subsection{Abstract del progetto}
-
-Wyd è un'applicazione che permette ai clienti di organizzare i propri impegni, siano essi confermati oppure proposti.\newline
-Mette a disposizione due calendari, il primo con gli eventi in cui l'utente è convinto di partecipare, 
-il secondo in cui vengono riuniti gli eventi a cui l'utente è stato invitato ma senza aver ancora dato conferma.\newline
-L'utente ha la possibilità di creare, modificare, confermare o disdire un evento, ma anche condividerlo con altri o allegarci foto.
-La condivisione di un evento può avvenire con applicazioni esterne tramite la generazione di un link o grazie all'ausilio di gruppi di profili.
-Inoltre, al termine di un evento, l'applicazione carica automaticamente le foto scattate durante l'evento, per allegarle a seguito della conferma dell'utente.\newline  
-L'utente può infatti cercare altri profili e creare gruppi con i profili trovati.\newline
-Tutta l'interazione avviene tramite l'utilizzo di profili, che permettono di suddividere semanticamente gli eventi e le relazioni.\newline
-
-\newpage
